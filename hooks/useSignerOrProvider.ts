@@ -8,7 +8,6 @@ type SignerOfProviderProps = {
 };
 export const useSignerOrProvider = (): SignerOfProviderProps => {
   const { signer } = useWagmi();
-  signer ? console.log("signer exists") : console.log("signer does not exists");
 
   const provider = getDefaultProvider("rinkeby", {
     infura: {

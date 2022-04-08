@@ -4,25 +4,22 @@ import { NavBar } from "components/NavBar";
 import { TicketTable } from "components/Tables/TicketTable";
 import { useSkaleStubFactoryContract } from "hooks/useSkaleStubFactoryContract";
 import type { NextPage } from "next";
-import { useEffect } from "react";
 
 const Home: NextPage = () => {
-  const { getRandom } = useSkaleStubFactoryContract();
+  const { getRandom, getStubAddress, createStub } =
+    useSkaleStubFactoryContract();
 
-  useEffect(() => {
-    const getRando = async () => {
-      console.log("getting randoooo");
-      await getRandom();
-    };
-
-    getRando();
-  });
   return (
     <>
       <NavBar />
       <Container centerContent>
         <SearchForm />
         <TicketTable />
+        <button onClick={getRandom}>get random</button>
+        <button onClick={() => getStubAddress(0)}>get address</button>
+        <button onClick={() => createStub("test-name", "test-symbol")}>
+          create stub
+        </button>
       </Container>
     </>
   );

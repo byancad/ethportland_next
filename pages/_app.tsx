@@ -13,7 +13,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
     <ChakraProvider theme={theme}>
       <UserProvider>
         <AlertProvider>
-          <Provider connectors={connectors}>
+          <Provider connectors={connectors} autoConnect>
             <UserSession>
               <Component {...pageProps} />
             </UserSession>

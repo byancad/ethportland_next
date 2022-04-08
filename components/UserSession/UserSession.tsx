@@ -1,4 +1,5 @@
 import { useUserContext } from "contexts/userContext";
+import { useWagmi } from "hooks/useWagmi";
 import { FC, useEffect } from "react";
 import { reqUserSession } from "services/siwe";
 
@@ -8,6 +9,7 @@ type UserSessionProps = {
 
 export const UserSession: FC<UserSessionProps> = ({ children }) => {
   const { updateUserSession } = useUserContext();
+  // const { signer } = useWagmi();
 
   useEffect(() => {
     const checkForUserSession = async () => {

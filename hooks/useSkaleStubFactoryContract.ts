@@ -4,6 +4,7 @@ import { useSignerOrProvider } from "./useSignerOrProvider";
 import addresses from "contracts/addresses";
 import abi from "contracts/abis/SkaleStubFactory";
 import { useWagmi } from "./useWagmi";
+import { rinkebyFactoryAddress } from "contracts/addresses";
 const CONTRACT_NAME = "SkaleStubFactory";
 
 export const useSkaleStubFactoryContract = () => {
@@ -12,14 +13,16 @@ export const useSkaleStubFactoryContract = () => {
   const { awaitTx, removeTx } = useAlertContext();
 
   const contract = useContract({
-    addressOrName: addresses[CONTRACT_NAME],
+    addressOrName: rinkebyFactoryAddress,
     contractInterface: abi,
     signerOrProvider: signer || provider,
   });
 
   const getRandom = async () => {
     try {
-      return await contract.getRandom();
+      const res = await contract.getRandom();
+      alert(res);
+      return res;
     } catch (e) {
       console.error(e);
     }
@@ -27,7 +30,9 @@ export const useSkaleStubFactoryContract = () => {
 
   const getStubAddress = async (id: number) => {
     try {
-      return await contract.getStubAddress(id);
+      const res = await contract.getStubAddress(id);
+      alert(res);
+      return res;
     } catch (e) {
       console.error(e);
     }
@@ -40,6 +45,7 @@ export const useSkaleStubFactoryContract = () => {
       awaitTx(tx);
       await tx.wait(1);
       removeTx(tx);
+      alert("Created stub");
     } catch (e) {
       removeTx(tx);
       console.error(e);

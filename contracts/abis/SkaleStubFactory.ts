@@ -54,6 +54,19 @@ export default [
     "type": "function"
   },
   {
+    "inputs": [],
+    "name": "getRandom",
+    "outputs": [
+      {
+        "internalType": "bytes32",
+        "name": "addr",
+        "type": "bytes32"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
     "inputs": [
       {
         "internalType": "uint256",

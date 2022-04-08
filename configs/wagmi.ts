@@ -13,7 +13,7 @@ const infuraId = "025df59fe64f491f93a36a20d1560dd5";
 const chains = defaultChains;
 // chains.push(skaleChain);
 
-console.log({ defaultChains });
+// console.log({ defaultChains });
 
 // Set up connectors
 export const connectors = ({ chainId }: any) => {
@@ -25,14 +25,14 @@ export const connectors = ({ chainId }: any) => {
     new WalletConnectConnector({
       options: {
         infuraId,
-        qrcode: true
-      }
+        qrcode: true,
+      },
     }),
     new WalletLinkConnector({
       options: {
         appName: "My wagmi app",
-        jsonRpcUrl: `${rpcUrl}/${infuraId}`
-      }
-    })
+        jsonRpcUrl: `${rpcUrl}/${infuraId}`,
+      },
+    }),
   ];
 };

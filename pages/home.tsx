@@ -6,8 +6,8 @@ import { useSkaleStubFactoryContract } from "hooks/useSkaleStubFactoryContract";
 import type { NextPage } from "next";
 
 const Home: NextPage = () => {
-  const { getRandom, getStubAddress, createStub } =
-    useSkaleStubFactoryContract();
+  // const { getRandom, getStubAddress, createStub } =
+  //   useSkaleStubFactoryContract();
 
   return (
     <>
@@ -15,11 +15,11 @@ const Home: NextPage = () => {
       <Container centerContent>
         <SearchForm />
         <TicketTable />
-        <button onClick={getRandom}>get random</button>
+        {/* <button onClick={getRandom}>get random</button>
         <button onClick={() => getStubAddress(0)}>get address</button>
         <button onClick={() => createStub("test-name", "test-symbol")}>
           create stub
-        </button>
+        </button> */}
       </Container>
     </>
   );

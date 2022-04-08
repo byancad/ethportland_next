@@ -2,6 +2,7 @@ import { Heading, Button, Container, FormControl, FormLabel, Input, NumberDecrem
 import { useAlertContext } from "contexts/alertContext";
 import type { NextPage } from "next";
 import { useState } from "react";
+import { NavBar } from '../components/NavBar/index';
 
 type FormInputProps = {
   event: string;
@@ -38,7 +39,9 @@ const Drop: NextPage = () => {
   };
 
   return (
-    <Container padding={20}>
+    <>
+    <NavBar/>
+   <Container padding={20}>
       <Heading alignContent="center">Drop Tickets</Heading>
       <form onSubmit={handleSubmit}>
       <FormControl isRequired>
@@ -57,10 +60,18 @@ const Drop: NextPage = () => {
               
                
             </NumberInput>
+            <FormLabel htmlFor='amount'>Creator Resell Share</FormLabel>
+            <NumberInput>
+              <NumberInputField type="qty" placeholder="%"/>
+              
+               
+            </NumberInput>
       </FormControl>
       <Button type="submit">Create Event</Button>
       </form>
     </Container>
+    </>
+    
   );
 };
 

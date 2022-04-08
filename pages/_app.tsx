@@ -8,6 +8,7 @@ import { Provider } from "wagmi";
 import { connectors } from "configs/wagmi";
 import { UserSession } from "components/UserSession/UserSession";
 
+
 const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
     <ChakraProvider theme={theme}>

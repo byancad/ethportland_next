@@ -13,16 +13,14 @@ const Landing: NextPage = () => {
       </Head>
 
       <main>
-      <Container centerContent>
-        <Box>
-          <Heading fontSize={52}>
+      <Container centerContent marginTop={40} padding={20}>
+        
+          <Heading fontSize={52}  >
               SkaleStub
           </Heading>
         
-        </Box>
-        <p>A ticketing platform for the Web3 Community</p>
-        <Button colorScheme='blue'>
-          
+        <div>A ticketing platform for the Web3 Community</div>
+        <Button margin={10}>
           <Link href="/home">go to dapp</Link>
           </Button>
       </Container>

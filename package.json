@@ -12,10 +12,15 @@
     "@chakra-ui/react": "^1.8.8",
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
+    "axios": "^0.26.1",
+    "ethers": "^5.6.2",
     "framer-motion": "^6",
+    "iron-session": "^6.1.2",
     "next": "12.1.4",
     "react": "18.0.0",
-    "react-dom": "18.0.0"
+    "react-dom": "18.0.0",
+    "siwe": "^1.1.6",
+    "wagmi": "^0.2.25"
   },
   "devDependencies": {
     "@types/node": "17.0.23",

@@ -3,6 +3,8 @@ import type { AppProps } from "next/app";
 
 import { ChakraProvider } from "@chakra-ui/react";
 import theme from "../styles/theme";
+import { Provider } from "wagmi";
+import { connectors } from "configs/wagmi";
 
 
 
@@ -10,7 +12,10 @@ import theme from "../styles/theme";
 const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
     <ChakraProvider theme={theme}>
-              <Component {...pageProps} /> 
+      <Provider connectors={connectors} >
+      <Component {...pageProps} /> 
+      </Provider>
+             
     </ChakraProvider>
   );
 };

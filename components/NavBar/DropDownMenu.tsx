@@ -4,7 +4,8 @@ import {
   MenuList,
   MenuItem,
   Avatar,
-  useClipboard
+  useClipboard,
+  Link
 } from "@chakra-ui/react";
 
 import { useEffect } from "react";
@@ -31,14 +32,16 @@ export const DropDownMenu = ({ address, disconnect }: MenuContainerProps) => {
       <MenuButton
         as={Avatar}
         aria-label="Options"
-        icon={<Avatar name="RALLY" src="RLY_COIN.svg" />}
+        icon={<Avatar name="avatar" src="avatar.png" />}
         outline="none"
       />
 
       <MenuList>
         <MenuItem onClick={onCopy}>{ellipsisString(address)}</MenuItem>
+        <MenuItem>
+          <Link href="/drop">Drop Tickets</Link>
+        </MenuItem>
         <MenuItem onClick={() => disconnect()}>Disconnect</MenuItem>
-        <MenuItem>Dark Mode</MenuItem>
       </MenuList>
     </Menu>
   );

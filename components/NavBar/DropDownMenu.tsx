@@ -37,11 +37,29 @@ export const DropDownMenu = ({ address, disconnect }: MenuContainerProps) => {
       />
 
       <MenuList>
-        <MenuItem onClick={onCopy}>{ellipsisString(address)}</MenuItem>
-        <MenuItem>
-          <Link href="/drop">Drop Tickets</Link>
+        <MenuItem
+          onClick={onCopy}
+          _focus={{ boxShadow: "none" }}
+          style={{ textDecoration: "none" }}
+        >
+          {ellipsisString(address)}
         </MenuItem>
-        <MenuItem onClick={() => disconnect()}>Disconnect</MenuItem>
+        <MenuItem>
+          <Link
+            href="/drop"
+            _focus={{ boxShadow: "none" }}
+            style={{ textDecoration: "none" }}
+          >
+            Drop Tickets
+          </Link>
+        </MenuItem>
+        <MenuItem
+          onClick={() => disconnect()}
+          _focus={{ boxShadow: "none" }}
+          style={{ textDecoration: "none" }}
+        >
+          Disconnect
+        </MenuItem>
       </MenuList>
     </Menu>
   );

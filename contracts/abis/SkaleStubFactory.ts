@@ -18,12 +18,6 @@ export default [
         "internalType": "string",
         "name": "name",
         "type": "string"
-      },
-      {
-        "indexed": false,
-        "internalType": "string",
-        "name": "symbol",
-        "type": "string"
       }
     ],
     "name": "LogStubCreated",
@@ -38,8 +32,28 @@ export default [
       },
       {
         "internalType": "string",
-        "name": "_symbol",
+        "name": "_artist",
         "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_date",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_location",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_quantity",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_creatorResellShare",
+        "type": "uint256"
       }
     ],
     "name": "createStub",

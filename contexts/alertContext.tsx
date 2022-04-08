@@ -11,7 +11,6 @@ import {
 } from "react";
 import { AwaitTransaction } from "../components/Toast/AwaitTransaction";
 
-
 // state
 type State = {
   awaitingTxs: string[];
@@ -65,7 +64,9 @@ type IContext = {
 const Context = createContext<IContext>({} as IContext);
 
 // context provider
-export const AlertProvider: React.FC = ({ children }) => {
+export const AlertProvider: React.FC<{
+  children: JSX.Element | JSX.Element[];
+}> = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const { awaitingTxs } = state;
 

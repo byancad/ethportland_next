@@ -7,12 +7,7 @@ import { reqLogout } from "../../services/siwe";
 import { LogoLeft } from "./LogoLeft";
 
 export const NavBar = () => {
-  const {
-    updateRally,
-    address,
-    clearUserSession,
-    updateUserSession
-  } = useUserContext();
+  const { address, clearUserSession, updateUserSession } = useUserContext();
   const disconnect = async () => {
     await reqLogout(); // end session
     clearUserSession(); // clear user context

@@ -3,7 +3,7 @@ import {
   Dispatch,
   Reducer,
   useContext,
-  useReducer
+  useReducer,
 } from "react";
 
 // state
@@ -16,14 +16,14 @@ type State = {
 const initialState: State = {
   address: undefined,
   session: false,
-  rally: {}
+  rally: {},
 };
 
 // actions
 enum ActionTypes {
   UPDATE_USER_SESSION,
   CLEAR_USER_SESSION,
-  UPDATE_RALLY_USER
+  UPDATE_RALLY_USER,
 }
 
 // action creator types
@@ -39,12 +39,12 @@ const reducer: Reducer<State, Actions> = (state: State, action: Actions) => {
     case ActionTypes.UPDATE_USER_SESSION:
       return {
         ...state,
-        ...action.payload
+        ...action.payload,
       };
     case ActionTypes.UPDATE_RALLY_USER:
       return {
         ...state,
-        rally: action.payload
+        rally: action.payload,
       };
     case ActionTypes.CLEAR_USER_SESSION:
       return initialState;
@@ -62,14 +62,16 @@ type IContext = {
 const Context = createContext<IContext>({} as IContext);
 
 // context provider
-export const Provider: React.FC = ({ children }) => {
+export const Provider: React.FC<{
+  children: JSX.Element | JSX.Element[];
+}> = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   return (
     <Context.Provider
       value={{
         state,
-        dispatch
+        dispatch,
       }}
     >
       {children}

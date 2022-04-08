@@ -3178,6 +3178,13 @@ globby@^11.0.4:
     merge2 "^1.4.1"
     slash "^3.0.0"
 
+graphql-tag@^2.10.3:
+  version "2.12.6"
+  resolved "https://registry.yarnpkg.com/graphql-tag/-/graphql-tag-2.12.6.tgz#d441a569c1d2537ef10ca3d1633b48725329b5f1"
+  integrity sha512-FdSNcu2QQcWnM2VNvSCCDCVS5PpPqpzgFT8+GXzqJuoDd0CBncxCY278u4mhRO7tMgo2JjgJA5aZ+nWSQ/Z+xg==
+  dependencies:
+    tslib "^2.1.0"
+
 has-bigints@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/has-bigints/-/has-bigints-1.0.1.tgz#64fe6acb020673e3b78db035a5af69aa9d07b113"
@@ -3682,6 +3689,13 @@ natural-compare@^1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/natural-compare/-/natural-compare-1.4.0.tgz#4abebfeed7541f2c27acfb29bdbbd15c8d5ba4f7"
   integrity sha1-Sr6/7tdUHywnrPspvbvRXI1bpPc=
+
+next-graphql-loader@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/next-graphql-loader/-/next-graphql-loader-1.0.1.tgz#f23318fa36c66d1d7a03aaef7fac7ce8fc6c4f2f"
+  integrity sha512-ZrPG6RiZZPQozhrYNfiDeJeltXCy+aV8KSZgiL0RpEpJKL9CiGuiXfS2RuU2P4+lLgSsPRMemhVZOs/DXUsvqw==
+  dependencies:
+    graphql-tag "^2.10.3"
 
 next@12.1.4:
   version "12.1.4"

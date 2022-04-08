@@ -4,7 +4,7 @@ import { useSignerOrProvider } from "./useSignerOrProvider";
 import addresses from "contracts/addresses";
 import abi from "contracts/abis/SkaleStubFactory";
 import { useWagmi } from "./useWagmi";
-import { rinkebyFactoryAddress } from "contracts/addresses";
+import { rinkebyFactoryAddress } from "contracts/addresses.rinkeby";
 const CONTRACT_NAME = "SkaleStubFactory";
 
 export const useSkaleStubFactoryContract = () => {
@@ -13,7 +13,7 @@ export const useSkaleStubFactoryContract = () => {
   const { awaitTx, removeTx } = useAlertContext();
 
   const contract = useContract({
-    addressOrName: rinkebyFactoryAddress,
+    addressOrName: addresses[CONTRACT_NAME],
     contractInterface: abi,
     signerOrProvider: signer || provider,
   });
@@ -38,10 +38,24 @@ export const useSkaleStubFactoryContract = () => {
     }
   };
 
-  const createStub = async (name: string, symbol: string) => {
+  const createStub = async (
+    name: string,
+    symbol: string,
+    date: string,
+    location: string,
+    quantity: number,
+    creatorShare: number
+  ) => {
     let tx;
     try {
-      tx = await contract.createStub(name, symbol);
+      tx = await contract.createStub(
+        name,
+        symbol,
+        date,
+        location,
+        quantity,
+        creatorShare
+      );
       awaitTx(tx);
       await tx.wait(1);
       removeTx(tx);

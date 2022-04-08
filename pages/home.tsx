@@ -1,5 +1,7 @@
 import { Container } from "@chakra-ui/react";
+import { SearchForm } from "components/Forms/SearchForm";
 import { NavBar } from "components/NavBar";
+import { TicketTable } from "components/Tables/TicketTable";
 import type { NextPage } from "next";
 import { Head } from "next/document";
 
@@ -10,7 +12,8 @@ return (
     <div>
      <NavBar/>
     <Container centerContent>
-        Home
+        <SearchForm/>
+        <TicketTable />
     </Container>
 
   

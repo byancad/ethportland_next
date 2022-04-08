@@ -1,1 +1,8 @@
-export default {"Greeter":"0xc5a5C42992dECbae36851359345FE25997F5C42d","SkaleStub":"0x67d269191c92Caf3cD7723F116c85e6E9bf55933","SkaleStubFactory":"0xE6E340D132b5f46d1e472DebcD681B2aBc16e57E"};
+export default {
+  Greeter: "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
+  SkaleStub: "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9",
+  SkaleStubFactory: "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707",
+};
+
+export const rinkebyFactoryAddress =
+  "0x16d2E6C38A43A40921DFA650377A41cf2d2934D4";

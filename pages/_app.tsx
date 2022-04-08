@@ -6,14 +6,17 @@ import { ChakraProvider } from "@chakra-ui/react";
 import theme from "../styles/theme";
 import { Provider } from "wagmi";
 import { connectors } from "configs/wagmi";
+import { UserSession } from "components/UserSession/UserSession";
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
     <ChakraProvider theme={theme}>
       <UserProvider>
         <AlertProvider>
-          <Provider connectors={connectors}>
-            <Component {...pageProps} />
+          <Provider connectors={connectors} autoConnect>
+            <UserSession>
+              <Component {...pageProps} />
+            </UserSession>
           </Provider>
         </AlertProvider>
       </UserProvider>

@@ -5,6 +5,7 @@ import addresses from "contracts/addresses";
 import abi from "contracts/abis/SkaleStubFactory";
 import { useWagmi } from "./useWagmi";
 import { rinkebyFactoryAddress } from "contracts/addresses.rinkeby";
+import { DropInputProps } from "components/Forms/DropForm";
 const CONTRACT_NAME = "SkaleStubFactory";
 
 export const useSkaleStubFactoryContract = () => {
@@ -13,7 +14,7 @@ export const useSkaleStubFactoryContract = () => {
   const { awaitTx, removeTx } = useAlertContext();
 
   const contract = useContract({
-    addressOrName: addresses[CONTRACT_NAME],
+    addressOrName: rinkebyFactoryAddress,
     contractInterface: abi,
     signerOrProvider: signer || provider,
   });
@@ -38,23 +39,17 @@ export const useSkaleStubFactoryContract = () => {
     }
   };
 
-  const createStub = async (
-    name: string,
-    symbol: string,
-    date: string,
-    location: string,
-    quantity: number,
-    creatorShare: number
-  ) => {
+  const createStub = async (params: DropInputProps) => {
+    const { event, artist, date, location, qty, creatorResellShare } = params;
     let tx;
     try {
       tx = await contract.createStub(
-        name,
-        symbol,
+        event,
+        artist,
         date,
         location,
-        quantity,
-        creatorShare
+        qty,
+        creatorResellShare
       );
       awaitTx(tx);
       await tx.wait(1);

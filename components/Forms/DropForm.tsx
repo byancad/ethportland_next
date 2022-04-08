@@ -12,7 +12,7 @@ import { useSkaleStubFactoryContract } from "hooks/useSkaleStubFactoryContract";
 import type { NextPage } from "next";
 import { useState } from "react";
 
-type FormInputProps = {
+export type DropInputProps = {
   event: string;
   artist: string;
   date: string;
@@ -24,7 +24,7 @@ type FormInputProps = {
 const DropForm: NextPage = () => {
   const { createStub } = useSkaleStubFactoryContract();
 
-  const [formInput, setFormInput] = useState<FormInputProps>({
+  const [formInput, setFormInput] = useState<DropInputProps>({
     event: "",
     artist: "",
     date: "",
@@ -34,15 +34,20 @@ const DropForm: NextPage = () => {
   });
 
   const handleChange = async (e: any): Promise<void> => {
+    let value = e.target.value;
+    if (e.target.name === "qty" || e.target.name === "creatorResellShare") {
+      value = parseInt(value);
+    }
     setFormInput({
       ...formInput,
-      [e.target.name]: e.target.value,
+      [e.target.name]: value,
     });
     console.log(e.target.name);
   };
 
   const handleSubmit = async (e: any): Promise<void> => {
     e.preventDefault();
+    createStub(formInput);
 
     console.log(formInput);
   };
@@ -80,7 +85,9 @@ const DropForm: NextPage = () => {
             />
           </NumberInput>
         </FormControl>
-        <Button type="submit">Create Event</Button>
+        <Button width="100%" mt={4} h={16} type="submit">
+          Create Event
+        </Button>
       </form>
     </>
   );

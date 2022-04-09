@@ -54,7 +54,7 @@ export const TicketPurchaseModal = ({
               <Text fontSize="xl">{location}</Text>
               <Text fontSize="xl">{date}</Text>
               <Text fontSize="l">
-                {mintedCount} of {capacity}
+                {parseInt(mintedCount) + 1} of {capacity}
               </Text>
             </Box>
           </ModalBody>

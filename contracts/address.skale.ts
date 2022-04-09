@@ -1,1 +1,1 @@
-export const skaleAddress = "0x16d2E6C38A43A40921DFA650377A41cf2d2934D4";
+export const skaleAddress = "0x2F545349eFC3A24D80f9907c105DA386ba927D05";

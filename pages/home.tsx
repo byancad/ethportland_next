@@ -43,7 +43,7 @@ const Home: NextPage = () => {
       <Container centerContent>
         <SearchForm getStubAddress={getStubAddress} />
         <TicketTable
-          tickets={state}
+          tickets={state.addressMap}
           onOpen={onOpen}
           setCurrentEvent={setCurrentEvent}
         />

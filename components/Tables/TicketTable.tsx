@@ -36,6 +36,7 @@ export const TicketTable = ({
           creatorResellShare: details["eventCreatorResellShare"].toString(),
           usedCount: details["eventUsedCount"].toString(),
           mintedCount: details["eventMintedCount"].toString(),
+          price: details["eventAmount"].toString(),
         };
         newTickets.push(deets);
       }
@@ -71,6 +72,7 @@ export const TicketTable = ({
           <Th>Artist</Th>
           <Th>Location</Th>
           <Th>Available</Th>
+          <Th>Price</Th>
           <Th>Purchase</Th>
         </Tr>
       </Thead>
@@ -82,6 +84,7 @@ export const TicketTable = ({
               <Td>{stub.artist}</Td>
               <Td>{stub.location}</Td>
               <Td>{stub.capacity}</Td>
+              <Td>{stub.price}</Td>
               <Td>
                 <Button
                   onClick={() => handleBuy(stub)}

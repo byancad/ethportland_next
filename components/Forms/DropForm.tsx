@@ -17,7 +17,9 @@ export type DropInputProps = {
   artist: string;
   date: string;
   location: string;
+  amount: number;
   qty: number;
+  price: 0;
   creatorResellShare: number;
 };
 
@@ -29,27 +31,31 @@ const DropForm: NextPage = () => {
     artist: "",
     date: "",
     location: "",
+    amount: 0,
+    price: 0,
     qty: 0,
     creatorResellShare: 0,
   });
 
   const handleChange = async (e: any): Promise<void> => {
     let value = e.target.value;
-    if (e.target.name === "qty" || e.target.name === "creatorResellShare") {
+    if (
+      e.target.name === "qty" ||
+      e.target.name === "creatorResellShare" ||
+      e.target.name === "amount" ||
+      e.target.name === "price"
+    ) {
       value = parseInt(value);
     }
     setFormInput({
       ...formInput,
       [e.target.name]: value,
     });
-    console.log(e.target.name);
   };
 
   const handleSubmit = async (e: any): Promise<void> => {
     e.preventDefault();
     createStub(formInput);
-
-    console.log(formInput);
   };
 
   return (
@@ -71,11 +77,21 @@ const DropForm: NextPage = () => {
           <FormLabel htmlFor="location">Location</FormLabel>
           <Input onChange={handleChange} type="text" name="location" />
 
-          <FormLabel htmlFor="amount">Amount</FormLabel>
+          <FormLabel htmlFor="qty">Quantity</FormLabel>
           <NumberInput>
             <NumberInputField type="text" onChange={handleChange} name="qty" />
           </NumberInput>
-          <FormLabel htmlFor="amount">Creator Resell Share</FormLabel>
+          <FormLabel htmlFor="price">Price</FormLabel>
+          <NumberInput>
+            <NumberInputField
+              type="text"
+              onChange={handleChange}
+              name="price"
+            />
+          </NumberInput>
+          <FormLabel htmlFor="creatorResellShare">
+            Creator Resell Share
+          </FormLabel>
           <NumberInput>
             <NumberInputField
               type="text"

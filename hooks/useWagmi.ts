@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
-import { useAccount, useConnect, useSigner } from "wagmi";
+import { useAccount, useConnect, useNetwork, useSigner } from "wagmi";
 
 export const useWagmi = () => {
   const [{ data: connectData }, connect] = useConnect();
   const [{ data: disconnectData }, disconnect] = useAccount();
   const [{ data: signer }] = useSigner();
+
+  const [{ data, error, loading }, switchNetwork] = useNetwork();
+  const chainId = data?.chain?.id;
 
   const [signerAddress, setSignerAddress] = useState<string | undefined>();
 
@@ -24,5 +27,6 @@ export const useWagmi = () => {
     disconnect,
     signer,
     signerAddress,
+    chainId,
   };
 };

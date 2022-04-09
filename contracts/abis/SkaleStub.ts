@@ -30,6 +30,16 @@ export default [
         "internalType": "uint256",
         "name": "__creatorResellShare",
         "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_newStubId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_amount",
+        "type": "uint256"
       }
     ],
     "stateMutability": "nonpayable",
@@ -109,6 +119,19 @@ export default [
     ],
     "name": "Transfer",
     "type": "event"
+  },
+  {
+    "inputs": [],
+    "name": "amount",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
   },
   {
     "inputs": [
@@ -229,6 +252,21 @@ export default [
         "internalType": "uint256",
         "name": "eventMintedCount",
         "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "eventId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "eventAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "eventAmount",
+        "type": "uint256"
       }
     ],
     "stateMutability": "view",
@@ -248,6 +286,19 @@ export default [
         "internalType": "address",
         "name": "",
         "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "id",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
       }
     ],
     "stateMutability": "view",

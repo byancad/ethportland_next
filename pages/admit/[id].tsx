@@ -28,15 +28,6 @@ const addressesByChain: { [id: number]: string } = {
   1666700000: harmonyAddress,
 };
 
-const fakeEvent = {
-  event: "Hackathon",
-  artist: "Richard",
-  date: "April 8, 2022",
-  location: "Portland, Oregon",
-  arrived: "1",
-  capacity: "100",
-};
-
 const Admit: NextPage = () => {
   const { address } = useUserContext();
   const { state } = useContractContext();

@@ -8,29 +8,32 @@ import {
   NumberInput,
   NumberInputField,
 } from "@chakra-ui/react";
+import { Contract } from "ethers";
 import { useSkaleStubFactoryContract } from "hooks/useSkaleStubFactoryContract";
 import type { NextPage } from "next";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 
 export type FormInputProps = {
   price: number;
-  address: string;
   id: number;
 };
 
-const DropForm: NextPage = () => {
+type DropFormProps = {
+  handleCreate: any;
+  contract: Contract | null;
+  setShowForm: Dispatch<SetStateAction<boolean>>;
+};
+
+const DropForm = ({ handleCreate, contract, setShowForm }: DropFormProps) => {
   const { addList } = useSkaleStubFactoryContract();
   const [formInput, setFormInput] = useState<FormInputProps>({
     price: 0,
-    address: "",
     id: 0,
   });
 
   const handleChange = async (e: any): Promise<void> => {
     let value = e.target.value;
-    if (e.target.name === "price" || e.target.name === "id") {
-      value = parseInt(value);
-    }
+    value = parseInt(value);
     setFormInput({
       ...formInput,
       [e.target.name]: value,
@@ -39,7 +42,11 @@ const DropForm: NextPage = () => {
 
   const handleSubmit = async (e: any): Promise<void> => {
     e.preventDefault();
-    await addList(formInput);
+    console.log("submitting", formInput);
+    const { price, id } = formInput;
+
+    await handleCreate(price, id, contract);
+    setShowForm(false);
   };
 
   return (
@@ -50,8 +57,6 @@ const DropForm: NextPage = () => {
           <FormLabel htmlFor="event">ID</FormLabel>
           <Input onChange={handleChange} type="text" name="id" />
 
-          <FormLabel htmlFor="address">Address</FormLabel>
-          <Input onChange={handleChange} type="text" name="address" />
           <FormLabel htmlFor="amount">Price</FormLabel>
           <NumberInput>
             <NumberInputField

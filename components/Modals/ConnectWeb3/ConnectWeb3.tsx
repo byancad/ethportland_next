@@ -53,7 +53,11 @@ const ConnectWeb3 = ({ updateUserSession }: ConnectWeb3Props) => {
 
   return (
     <>
-      <Button _focus={{ boxShadow: "none" }} onClick={onOpen}>
+      <Button
+        _focus={{ boxShadow: "none" }}
+        bgGradient="linear(to-l, #7928CA, #FF0080)"
+        onClick={onOpen}
+      >
         Connect
       </Button>
       <Modal isOpen={isOpen} onClose={onClose}>

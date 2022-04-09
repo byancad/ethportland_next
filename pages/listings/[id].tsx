@@ -22,6 +22,7 @@ import harmonyAddress from "contracts/addresses.harmony";
 import { useAlertContext } from "contexts/alertContext";
 import StubListingAbi from "contracts/abis/StubListing";
 import { ResellTable } from "components/Tables/ResellTable";
+import { NavBar } from "components/NavBar";
 
 const CONTRACT_NAME = "SkaleStubFactory";
 const addressesByChain: { [id: number]: string } = {
@@ -141,25 +142,48 @@ const Listings: NextPage = () => {
 
   return (
     <div>
-      <Container>
-        <Heading>Resale Tickets</Heading>
-        <Box textAlign={"right"}>
-          <Button onClick={() => setShowForm(!showForm)}> Sell ticket</Button>
+      <NavBar />
+
+      <Container marginTop={50} padding={20} centerContent>
+        <Box
+          backgroundColor="#5662a6"
+          opacity="90%"
+          height="100%"
+          borderRadius="4px"
+          padding={9}
+          fontWeight="semibold"
+          letterSpacing="wide"
+          fontSize="xs"
+          textTransform="uppercase"
+          boxShadow="dark-lg"
+          ml="2"
+        >
+          <Heading>Resale Tickets</Heading>
+          <Box textAlign={"right"}>
+            <Button
+              onClick={() => setShowForm(!showForm)}
+              _focus={{ boxShadow: "none" }}
+              bgGradient="linear(to-l, #7928CA, #FF0080)"
+            >
+              {" "}
+              Sell ticket
+            </Button>
+          </Box>
+
+          <Box>{eventDetails?.name}</Box>
+          <Box>{eventDetails?.artist}</Box>
+          <Box>{eventDetails?.date}</Box>
+          <Box>{eventDetails?.location}</Box>
+
+          {showForm && (
+            <ListForm
+              handleCreate={handleCreateListing}
+              contract={contract}
+              setShowForm={setShowForm}
+            />
+          )}
+          <ResellTable tickets={listings} handleClick={handleBuyListing} />
         </Box>
-
-        <Box>{eventDetails?.name}</Box>
-        <Box>{eventDetails?.artist}</Box>
-        <Box>{eventDetails?.date}</Box>
-        <Box>{eventDetails?.location}</Box>
-
-        {showForm && (
-          <ListForm
-            handleCreate={handleCreateListing}
-            contract={contract}
-            setShowForm={setShowForm}
-          />
-        )}
-        <ResellTable tickets={listings} handleClick={handleBuyListing} />
       </Container>
     </div>
   );

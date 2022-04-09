@@ -8,12 +8,12 @@ export const LogoLeft = () => {
         style={{ textDecoration: "none", fontSize: "24px" }}
         _focus={{ boxShadow: "none" }}
       >
-        <img
+        {/* <img
           width="40px"
           data-testid="kitty-image"
           src="/ticket.png"
           alt="kitty"
-        />
+        /> */}
         SkaleStub
       </Link>
     </Box>

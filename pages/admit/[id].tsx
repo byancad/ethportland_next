@@ -15,6 +15,18 @@ import { useWagmi } from "hooks/useWagmi";
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
 import { useEffect, useMemo, useState } from "react";
+import address from "contracts/addresses";
+import { skaleAddress } from "contracts/address.skale";
+import { rinkebyFactoryAddress } from "contracts/addresses.rinkeby";
+import harmonyAddress from "contracts/addresses.harmony";
+
+const CONTRACT_NAME = "SkaleStubFactory";
+const addressesByChain: { [id: number]: string } = {
+  69: address[CONTRACT_NAME],
+  3092851097537429: skaleAddress,
+  4: rinkebyFactoryAddress,
+  1666700000: harmonyAddress,
+};
 
 const fakeEvent = {
   event: "Hackathon",
@@ -30,7 +42,7 @@ const Admit: NextPage = () => {
   const { state } = useContractContext();
   const [eventDetails, setEventDetails] = useState<any>({});
   const { getStubAddress } = useSkaleStubFactoryContract();
-  const { signer } = useWagmi();
+  const { signer, chainId } = useWagmi();
   const { awaitTx, removeTx, popToast } = useAlertContext();
 
   const router = useRouter();
@@ -70,7 +82,6 @@ const Admit: NextPage = () => {
   }, [contract]);
 
   const handleAdmit = async (e: any) => {
-    console.log(state.idMap);
     e.preventDefault();
     const admitting = async (contract: Contract) => {
       let tx;
@@ -99,46 +110,80 @@ const Admit: NextPage = () => {
     }
   };
 
+  const handleCreateListing = async (e: any) => {
+    e.preventDefault();
+    const createListing = async (contract: Contract) => {
+      const tokenId = 0;
+      const askPrice = 100;
+      const factoryAddress = addressesByChain[chainId || 69];
+      let tx;
+      try {
+        tx = await contract.listToken(tokenId, askPrice, factoryAddress);
+        awaitTx(tx);
+        await tx.wait(1);
+        removeTx(tx);
+        popToast({
+          title: "You've listed your ticket for sell. Good luck!",
+          status: "success",
+        });
+      } catch (e) {
+        console.log(e);
+        popToast({
+          title: "Something went wrong!",
+          status: "error",
+        });
+
+        removeTx(tx);
+      }
+    };
+
+    if (id && typeof id === "string") {
+      const contract = state.idMap[parseInt(id)];
+      createListing(contract);
+    }
+  };
+
   return (
     <div>
       <Container centerContent>
         <div style={{ fontSize: "40px", marginTop: "100px" }}>Event Info</div>
         <Box
-          backgroundColor='#5662a6'
+          backgroundColor="#5662a6"
           opacity="90%"
           borderRadius="4px"
           padding={9}
-          fontWeight='semibold'
-          letterSpacing='wide'
-          fontSize='xs'
-          textTransform='uppercase'
-          boxShadow='dark-lg'
-          ml='2'
+          fontWeight="semibold"
+          letterSpacing="wide"
+          fontSize="xs"
+          textTransform="uppercase"
+          boxShadow="dark-lg"
+          ml="2"
         >
           <div style={{ fontSize: "60px" }}>{eventDetails?.artist}</div>
-        
+
           <div style={{ fontSize: "40px" }}>{eventDetails?.name}</div>
-      
+
           <div style={{ fontSize: "40px" }}>{eventDetails?.location}</div>
           <br />
           <div style={{ fontSize: "30px" }}>{eventDetails?.date}</div>
-         
+
           <div style={{ fontSize: "20px" }}>
             Arrived: {eventDetails?.usedCount || 0} / {eventDetails?.capacity}{" "}
           </div>
           <Button
-          onClick={handleAdmit}
-          mt={8}
-          width="100%"
-          size="lg"
-          height="70px"
-          _focus={{ boxShadow: "none" }}
-          bgGradient='linear(to-l, #7928CA, #FF0080)'
-        >
-          ADMIT
-        </Button>
+            onClick={handleAdmit}
+            mt={8}
+            width="100%"
+            size="lg"
+            height="70px"
+            _focus={{ boxShadow: "none" }}
+            bgGradient="linear(to-l, #7928CA, #FF0080)"
+          >
+            ADMIT
+          </Button>
         </Box>
-      
+
+        <Button onClick={handleCreateListing}>Create listing</Button>
       </Container>
     </div>
   );

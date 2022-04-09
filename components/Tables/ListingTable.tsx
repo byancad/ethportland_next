@@ -64,7 +64,7 @@ export const ListingTable = ({
   };
 
   return (
-    <Table variant="simple" marginTop={18}>
+    <Table variant="simple" marginTop={18} alignItems="center">
       <Thead>
         <Tr>
           <Th>Date</Th>

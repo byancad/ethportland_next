@@ -67,7 +67,8 @@ const DropForm = ({ handleCreate, contract, setShowForm }: DropFormProps) => {
             />
           </NumberInput>
         </FormControl>
-        <Button width="100%" mt={4} h={16} type="submit">
+        <Button width="100%" mt={4} h={16} type="submit"      _focus={{ boxShadow: "none" }}
+              bgGradient="linear(to-l, #7928CA, #FF0080)">
           List Ticket
         </Button>
       </form>

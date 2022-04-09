@@ -3,7 +3,7 @@ import {
   Button,
   Container,
   Heading,
-  useDisclosure,
+  useDisclosure
 } from "@chakra-ui/react";
 import ListForm from "components/Forms/ListForm";
 import { ListingTable } from "components/Tables/ListingTable";
@@ -28,7 +28,7 @@ const addressesByChain: { [id: number]: string } = {
   69: address[CONTRACT_NAME],
   3092851097537429: skaleAddress,
   4: rinkebyFactoryAddress,
-  1666700000: harmonyAddress,
+  1666700000: harmonyAddress
 };
 
 const Listings: NextPage = () => {
@@ -67,7 +67,7 @@ const Listings: NextPage = () => {
         capacity: details["eventMaxMint"].toString(),
         creatorResellShare: details["eventCreatorResellShare"].toString(),
         usedCount: details["eventUsedCount"].toString(),
-        mintedCount: details["eventMintedCount"].toString(),
+        mintedCount: details["eventMintedCount"].toString()
       };
 
       setEventDetails({ ...deets });
@@ -90,7 +90,7 @@ const Listings: NextPage = () => {
         const deets = {
           price: details._askPrice.toString(),
           tokenId: details._tokenId.toString(),
-          address: details._tokenAddress,
+          address: details._tokenAddress
         };
         listData.push(deets);
       }
@@ -125,13 +125,13 @@ const Listings: NextPage = () => {
         removeTx(tx);
         popToast({
           title: "You've listed your ticket for sell. Good luck!",
-          status: "success",
+          status: "success"
         });
       } catch (e) {
         console.log(e);
         popToast({
           title: "Something went wrong!",
-          status: "error",
+          status: "error"
         });
 
         removeTx(tx);

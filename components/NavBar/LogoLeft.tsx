@@ -1,4 +1,4 @@
-import { Box, Link } from "@chakra-ui/react";
+import { Avatar, Box, Link } from "@chakra-ui/react";
 
 export const LogoLeft = () => {
   return (
@@ -8,9 +8,14 @@ export const LogoLeft = () => {
         style={{ textDecoration: "none", fontSize: "24px" }}
         _focus={{ boxShadow: "none" }}
       >
+        <img
+          width="40px"
+          data-testid="kitty-image"
+          src="/ticket.png"
+          alt="kitty"
+        />
         SkaleStub
       </Link>
-      {/* <img data-testid="kitty-image" src="" alt="kitty" /> */}
     </Box>
   );
 };

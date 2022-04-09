@@ -15,7 +15,7 @@ const Home: NextPage = () => {
       <NavBar />
       <Container centerContent>
         <SearchForm getStubAddress={getStubAddress} />
-        <TicketTable tickets={Object.values(state)} />
+        <TicketTable tickets={state} />
         <button onClick={stubCount}>get count</button>
         <button onClick={getRandom}>getRandom</button>
       </Container>

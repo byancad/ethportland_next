@@ -10,7 +10,10 @@ const theme = extendTheme({
   styles: {
     global: {
       body: {
-        bgImage: "url('/home.jpg');"
+        bgImage: "url('/home.jpg');",
+        bgPosition: "center",
+        bgRepeat: "no-repeat",
+        backgroundSize: "cover"
       }
     }
   }

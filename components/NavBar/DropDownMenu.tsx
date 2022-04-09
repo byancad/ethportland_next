@@ -32,7 +32,7 @@ export const DropDownMenu = ({ address, disconnect }: MenuContainerProps) => {
       <MenuButton
         as={Avatar}
         aria-label="Options"
-        icon={<Avatar name="avatar" src="avatar.png" />}
+        icon={<Avatar name="Dan Abrahmov" src="https://bit.ly/dan-abramov" />}
         outline="none"
       />
 
@@ -55,7 +55,7 @@ export const DropDownMenu = ({ address, disconnect }: MenuContainerProps) => {
         </MenuItem>
         <MenuItem>
           <Link
-            href={`https://staging-global.transak.com/?apiKey=${process.env.TRANSAK_API_KEY}&cryptoCurrencyList=ETH,DAI,USDT&defaultCryptoCurrency=ETH&walletAddress=0x2dd94DC4b658F08E33272e6563dAb1758c10b1de&disableWalletAddressForm=true&exchangeScreenTitle=My%20dApp%20is%20the%20best&isFeeCalculationHidden=true`}
+            href={`https://staging-global.transak.com/?apiKey=${process.env.TRANSAK_API_KEY}&fiatCurrency=USD&cryptoCurrencyList=ETH&defaultCryptoCurrency=ETH&walletAddress=${address}&disableWalletAddressForm=true&exchangeScreenTitle=Stub3&isFeeCalculationHidden=true`}
             style={{ textDecoration: "none" }}
           >
             Buy Crypto

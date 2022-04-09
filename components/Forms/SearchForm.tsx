@@ -33,19 +33,26 @@ export const SearchForm = ({ getStubAddress }: SearchFormProps) => {
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        <FormControl marginTop={16}>
-          <FormHelperText textAlign="center" fontSize="50px">
+        <FormControl marginTop={10}>
+          <FormHelperText textAlign="center" fontSize="50px" color="white">
             Search Tickets
           </FormHelperText>
           <FormLabel htmlFor="address"></FormLabel>
-          <InputGroup width={550}>
-            <Input onChange={handleChange} value={searchText} width="100%" />
-            <InputRightElement width="4.5rem">
+          <InputGroup width={620} _focus={{ boxShadow: "none" }} marginTop={6}>
+            <Input
+              onChange={handleChange}
+              value={searchText}
+              width="100%"
+              _focus={{ boxShadow: "none" }}
+            />
+            <InputRightElement width="5.5rem">
               <Button
                 type="submit"
                 h="1.75rem"
+                w="3rem"
                 size="sm"
                 _focus={{ boxShadow: "none" }}
+                bgGradient="linear(to-l, #7928CA, #FF0080)"
               >
                 go
               </Button>

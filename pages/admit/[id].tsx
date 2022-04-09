@@ -104,35 +104,41 @@ const Admit: NextPage = () => {
       <Container centerContent>
         <div style={{ fontSize: "40px", marginTop: "100px" }}>Event Info</div>
         <Box
-          opacity="60%"
-          w="100%"
-          p={4}
-          color="white"
-          textAlign="center"
-          marginTop="5"
+          backgroundColor='#5662a6'
+          opacity="90%"
+          borderRadius="4px"
+          padding={9}
+          fontWeight='semibold'
+          letterSpacing='wide'
+          fontSize='xs'
+          textTransform='uppercase'
+          boxShadow='dark-lg'
+          ml='2'
         >
-          <div style={{ fontSize: "70px" }}>{eventDetails?.artist}</div>
-          <br />
-          <div style={{ fontSize: "50px" }}>{eventDetails?.event}</div>
-          <br />
+          <div style={{ fontSize: "60px" }}>{eventDetails?.artist}</div>
+        
+          <div style={{ fontSize: "40px" }}>{eventDetails?.name}</div>
+      
           <div style={{ fontSize: "40px" }}>{eventDetails?.location}</div>
           <br />
-          <div style={{ fontSize: "50px" }}>{eventDetails?.date}</div>
-          <br />
+          <div style={{ fontSize: "30px" }}>{eventDetails?.date}</div>
+         
           <div style={{ fontSize: "20px" }}>
             Arrived: {eventDetails?.usedCount || 0} / {eventDetails?.capacity}{" "}
           </div>
-        </Box>
-        <Button
+          <Button
           onClick={handleAdmit}
           mt={8}
           width="100%"
           size="lg"
           height="70px"
           _focus={{ boxShadow: "none" }}
+          bgGradient='linear(to-l, #7928CA, #FF0080)'
         >
           ADMIT
         </Button>
+        </Box>
+      
       </Container>
     </div>
   );

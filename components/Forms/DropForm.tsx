@@ -101,7 +101,7 @@ const DropForm: NextPage = () => {
             />
           </NumberInput>
         </FormControl>
-        <Button width="100%" mt={4} h={16} type="submit">
+        <Button width="100%" mt={4} h={16} type="submit" bgGradient='linear(to-l, #7928CA, #FF0080)' >
           Create Event
         </Button>
       </form>

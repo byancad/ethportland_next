@@ -53,6 +53,14 @@ export const DropDownMenu = ({ address, disconnect }: MenuContainerProps) => {
             Drop Tickets
           </Link>
         </MenuItem>
+        <MenuItem>
+          <Link
+            href={`https://staging-global.transak.com/?apiKey=${process.env.TRANSAK_API_KEY}&redirectURL=http://localhost:3000/home`}
+            style={{ textDecoration: "none" }}
+          >
+            Buy Crypto
+          </Link>
+        </MenuItem>
         <MenuItem
           onClick={() => disconnect()}
           _focus={{ boxShadow: "none" }}

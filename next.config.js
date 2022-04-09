@@ -14,7 +14,9 @@ const nextJsConfig = {
     ENCRYPT_SECRET: process.env.ENCRYPT_SECRET,
     INFURA_PROJECT_ID: process.env.INFURA_PROJECT_ID,
     INFURA_PROJECT_ID: process.env.INFURA_PROJECT_SECRET,
-  },
+    TRANSAK_BASE_URL: process.env.TRANSAK_BASE_URL,
+    TRANSAK_API_KEY: process.env.TRANSAK_API_KEY
+  }
 };
 
 module.exports = withGraphql(nextJsConfig);

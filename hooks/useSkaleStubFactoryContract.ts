@@ -5,6 +5,7 @@ import factoryAbi from "contracts/abis/SkaleStubFactory";
 import stubAbi from "contracts/abis/SkaleStub";
 import { useWagmi } from "./useWagmi";
 import { rinkebyFactoryAddress } from "contracts/addresses.rinkeby";
+import harmonyAddress from "contracts/addresses.harmony";
 import { skaleAddress } from "contracts/address.skale";
 import { DropInputProps } from "components/Forms/DropForm";
 import { ethers } from "ethers";
@@ -18,7 +19,7 @@ export const useSkaleStubFactoryContract = () => {
   const { awaitTx, removeTx, popToast } = useAlertContext();
 
   const contract = new ethers.Contract(
-    skaleAddress,
+    harmonyAddress,
     factoryAbi,
     signer || provider
   );

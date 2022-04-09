@@ -3,7 +3,7 @@ import {
   Button,
   Container,
   Heading,
-  useDisclosure,
+  useDisclosure
 } from "@chakra-ui/react";
 import ListForm from "components/Forms/ListForm";
 import { ListingTable } from "components/Tables/ListingTable";
@@ -14,8 +14,11 @@ import { useState } from "react";
 
 const Sell: NextPage = () => {
   const { state } = useContractContext();
-  const { getStubAddress, stubCount, getRandom } =
-    useSkaleStubFactoryContract();
+  const {
+    getStubAddress,
+    stubCount,
+    getRandom
+  } = useSkaleStubFactoryContract();
   const [eventCount, setEventCount] = useState<number>(0);
   const { onOpen } = useDisclosure();
   const [setCurrentEvent] = useState<any>({});

@@ -10,6 +10,7 @@ import { skaleAddress } from "contracts/address.skale";
 import { DropInputProps } from "components/Forms/DropForm";
 import { ethers } from "ethers";
 import { useContractContext } from "contexts/contractContext";
+import { redirect } from "next/dist/server/api-utils";
 const CONTRACT_NAME = "SkaleStubFactory";
 // skale 3092851097537429
 // rink 4
@@ -18,14 +19,14 @@ const addressesByChain: { [id: number]: string } = {
   69: address[CONTRACT_NAME],
   3092851097537429: skaleAddress,
   4: rinkebyFactoryAddress,
-  1666700000: harmonyAddress,
+  1666700000: harmonyAddress
 };
 
 const chainNames: { [id: number]: string } = {
   69: "Local",
   3092851097537429: "Skale",
   4: "rinkeby",
-  1666700000: "harmony",
+  1666700000: "harmony"
 };
 
 export const useSkaleStubFactoryContract = () => {
@@ -83,8 +84,15 @@ export const useSkaleStubFactoryContract = () => {
   };
 
   const createStub = async (params: DropInputProps) => {
-    const { event, artist, date, location, qty, creatorResellShare, price } =
-      params;
+    const {
+      event,
+      artist,
+      date,
+      location,
+      qty,
+      creatorResellShare,
+      price
+    } = params;
     let tx;
     try {
       tx = await contract.createStub(

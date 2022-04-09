@@ -114,5 +114,20 @@ export const useSkaleStubFactoryContract = () => {
     }
   };
 
-  return { getRandom, getStubAddress, createStub, stubCount };
+  const getListings = async () => {
+    return await contract.getListings();
+  };
+
+  const addList = async (props: {
+    price: number;
+    address: string;
+    id: number;
+  }) => {
+    const { price, address, id } = props;
+    const stringId = address.toString() + "-" + id.toString();
+
+    console.log(stringId);
+  };
+
+  return { getRandom, getStubAddress, createStub, stubCount, addList };
 };

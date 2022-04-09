@@ -5,24 +5,23 @@ import {
   FormLabel,
   Input,
   InputGroup,
-  InputRightElement
+  InputRightElement,
 } from "@chakra-ui/react";
 import { useAlertContext } from "contexts/alertContext";
 import { useSkaleStubFactoryContract } from "hooks/useSkaleStubFactoryContract";
 import { useState } from "react";
 
-type SearchFormProps = {};
+type SearchFormProps = {
+  getStubAddress: (id: number) => void;
+};
 
-export const SearchForm = ({}: SearchFormProps) => {
-  const { popToast } = useAlertContext();
+export const SearchForm = ({ getStubAddress }: SearchFormProps) => {
   const [searchText, setSearchText] = useState<number>();
-  const { getStubAddress } = useSkaleStubFactoryContract();
 
   const handleSubmit = async (e: any): Promise<void> => {
     e.preventDefault();
     if (searchText) {
-      const address = await getStubAddress(searchText);
-      alert(address);
+      await getStubAddress(searchText);
     }
   };
 

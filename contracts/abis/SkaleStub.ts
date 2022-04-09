@@ -162,12 +162,68 @@ export default [
   },
   {
     "inputs": [],
+    "name": "creatorResellShare",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
     "name": "date",
     "outputs": [
       {
         "internalType": "string",
         "name": "",
         "type": "string"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "details",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "eventName",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "eventArtist",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "eventDate",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "eventLocation",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "eventMaxMint",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "eventCreatorResellShare",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "eventUsedCount",
+        "type": "uint256"
       }
     ],
     "stateMutability": "view",
@@ -438,6 +494,19 @@ export default [
     "name": "transferFrom",
     "outputs": [],
     "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "usedCount",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
     "type": "function"
   }
 ];

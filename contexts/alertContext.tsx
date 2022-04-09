@@ -79,7 +79,7 @@ export const AlertProvider: React.FC<{
       title,
       description,
       status,
-      duration,
+      duration: 3000,
       isClosable: isClosable,
       variant: "solid",
       position: "top-right",

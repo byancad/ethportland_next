@@ -13,7 +13,7 @@ type TicketTableProps = {
 export const TicketTable = ({
   tickets,
   onOpen,
-  setCurrentEvent,
+  setCurrentEvent
 }: TicketTableProps) => {
   const [stubs, setStubs] = useState<any[]>([]);
   const { address: userAddress } = useUserContext();
@@ -36,7 +36,7 @@ export const TicketTable = ({
           creatorResellShare: details["eventCreatorResellShare"].toString(),
           usedCount: details["eventUsedCount"].toString(),
           mintedCount: details["eventMintedCount"].toString(),
-          price: details["eventAmount"].toString(),
+          price: details["eventAmount"].toString()
         };
         newTickets.push(deets);
       }
@@ -65,8 +65,8 @@ export const TicketTable = ({
   };
 
   return (
-    <Table variant="simple" marginTop={18}>
-      <Thead>
+    <Table variant="simple" marginTop={18} color="white">
+      <Thead color="white" marginTop={10}>
         <Tr>
           <Th>Date</Th>
           <Th>Artist</Th>

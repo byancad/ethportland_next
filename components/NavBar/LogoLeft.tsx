@@ -5,7 +5,11 @@ export const LogoLeft = () => {
     <Box>
       <Link
         href="/home"
-        style={{ textDecoration: "none", fontSize: "24px" }}
+        style={{
+          textDecoration: "none",
+          fontSize: "24px",
+          fontWeight: "bold"
+        }}
         _focus={{ boxShadow: "none" }}
       >
         {/* <img
@@ -14,7 +18,7 @@ export const LogoLeft = () => {
           src="/ticket.png"
           alt="kitty"
         /> */}
-        SkaleStub
+        STUB3
       </Link>
     </Box>
   );

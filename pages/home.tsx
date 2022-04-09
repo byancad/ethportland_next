@@ -1,4 +1,4 @@
-import { Container, useDisclosure } from "@chakra-ui/react";
+import { Box, Container, useDisclosure } from "@chakra-ui/react";
 import { SearchForm } from "components/Forms/SearchForm";
 import { TicketPurchaseModal } from "components/Modals/TicketPurchaseModal/TicketPurchaseModal";
 import { NavBar } from "components/NavBar";
@@ -40,9 +40,21 @@ const Home: NextPage = () => {
   return (
     <>
       <NavBar />
-      <Container centerContent>
+      
+      <Container color="white" marginTop={100} centerContent>
+        <Box backgroundColor='#5662a6'
+            opacity="90%"
+            borderRadius="4px"
+            padding={9}
+            fontWeight='semibold'
+            letterSpacing='wide'
+            fontSize='xs'
+            textTransform='uppercase'
+            boxShadow='dark-lg'
+            ml='2'>
         <SearchForm getStubAddress={getStubAddress} />
         <TicketTable
+          
           tickets={state.addressMap}
           onOpen={onOpen}
           setCurrentEvent={setCurrentEvent}
@@ -53,6 +65,8 @@ const Home: NextPage = () => {
           event={currentEvent}
           getRandom={getRandom}
         />
+        </Box>
+   
       </Container>
     </>
   );

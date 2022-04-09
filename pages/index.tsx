@@ -17,14 +17,14 @@ const Landing: NextPage = () => {
        </Head>
        <main>
       <Container centerContent marginTop={40} padding={20}>
-        
-          <Heading fontSize={52}  >
-              Stub3
-          </Heading>
-        
-        <div>A ticketing platform for the Web3 Community</div>
-        <Button margin={10}>
-          <Link href="/home">go to dapp</Link>
+        <Heading fontSize={90}  >
+              STUB3
+        </Heading>
+          <div style={{ marginTop: "6px", fontWeight: "bold", fontSize: "20px"}}>A ticketing platform for the Web3 Community</div>
+        <Button margin={6} opacity="100%" bgGradient='linear(to-l, #7928CA, #FF0080)' >
+          <Link href="/home"  _focus={{ boxShadow: "none"  }} style={{ textDecoration: "none", fontSize: "20px" }}>
+            Launch app
+          </Link>
           </Button>
       </Container>
   

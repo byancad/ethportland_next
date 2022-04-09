@@ -26,7 +26,7 @@ export const useSkaleStubFactoryContract = () => {
   const stubCount = async () => {
     try {
       const res = await contract.stubCount();
-      alert(res);
+
       return res;
     } catch (e) {
       console.log(e);

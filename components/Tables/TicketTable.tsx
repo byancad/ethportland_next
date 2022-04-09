@@ -9,6 +9,7 @@ import {
   Tr
 } from "@chakra-ui/react";
 import { Contract } from "ethers";
+import { useSkaleStubFactoryContract } from "hooks/useSkaleStubFactoryContract";
 import { useEffect, useState } from "react";
 
 type TicketTableProps = {

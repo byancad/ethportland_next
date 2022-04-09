@@ -7,8 +7,8 @@ import { Container } from '@chakra-ui/react'
 
 const Landing: NextPage = () => {
   return (
-    <div 	>
     
+    <div>
       <Box
   backgroundImage="/small_portland.jpg"
   backgroundRepeat="no-repeat"

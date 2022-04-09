@@ -1,4 +1,10 @@
-import { Container, Heading, useDisclosure } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Container,
+  Heading,
+  useDisclosure,
+} from "@chakra-ui/react";
 import ListForm from "components/Forms/ListForm";
 import { ListingTable } from "components/Tables/ListingTable";
 import { useContractContext } from "contexts/contractContext";
@@ -8,21 +14,24 @@ import { useState } from "react";
 
 const Sell: NextPage = () => {
   const { state } = useContractContext();
-  const {
-    getStubAddress,
-    stubCount,
-    getRandom
-  } = useSkaleStubFactoryContract();
+  const { getStubAddress, stubCount, getRandom } =
+    useSkaleStubFactoryContract();
   const [eventCount, setEventCount] = useState<number>(0);
-  const { isOpen, onClose, onOpen } = useDisclosure();
-  const [currentEvent, setCurrentEvent] = useState<any>({});
+  const { onOpen } = useDisclosure();
+  const [setCurrentEvent] = useState<any>({});
+  const [showForm, setShowForm] = useState<boolean>();
+
   return (
     <div>
       <Container>
-        <Heading>List Tickets</Heading>
-        <ListForm />
+        <Heading>Resale Tickets</Heading>
+        <Box textAlign={"right"}>
+          <Button onClick={() => setShowForm(!showForm)}> Sell ticket</Button>
+        </Box>
+
+        {showForm && <ListForm />}
         <ListingTable
-          tickets={state}
+          tickets={state.addressMap}
           onOpen={onOpen}
           setCurrentEvent={setCurrentEvent}
         />

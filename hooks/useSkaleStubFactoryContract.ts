@@ -5,6 +5,7 @@ import factoryAbi from "contracts/abis/SkaleStubFactory";
 import stubAbi from "contracts/abis/SkaleStub";
 import { useWagmi } from "./useWagmi";
 import { rinkebyFactoryAddress } from "contracts/addresses.rinkeby";
+import { skaleAddress } from "contracts/address.skale";
 import { DropInputProps } from "components/Forms/DropForm";
 import { ethers } from "ethers";
 import { useContractContext } from "contexts/contractContext";
@@ -17,10 +18,20 @@ export const useSkaleStubFactoryContract = () => {
   const { awaitTx, removeTx, popToast } = useAlertContext();
 
   const contract = new ethers.Contract(
-    rinkebyFactoryAddress,
+    skaleAddress,
     factoryAbi,
     signer || provider
   );
+
+  const stubCount = async () => {
+    try {
+      const res = await contract.stubCount();
+      alert(res);
+      return res;
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   const getRandom = async () => {
     try {
@@ -71,5 +82,5 @@ export const useSkaleStubFactoryContract = () => {
     }
   };
 
-  return { getRandom, getStubAddress, createStub };
+  return { getRandom, getStubAddress, createStub, stubCount };
 };

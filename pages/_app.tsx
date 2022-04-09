@@ -1,6 +1,7 @@
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import { Provider as UserProvider } from "contexts/userContext";
+import { Provider as ContractProvider } from "contexts/contractContext";
 import { AlertProvider } from "contexts/alertContext";
 import { ChakraProvider } from "@chakra-ui/react";
 import theme from "../styles/theme";
@@ -16,7 +17,9 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
         <AlertProvider>
           <Provider connectors={connectors} autoConnect>
             <UserSession>
-              <Component {...pageProps} />
+              <ContractProvider>
+                <Component {...pageProps} />
+              </ContractProvider>
             </UserSession>
           </Provider>
         </AlertProvider>

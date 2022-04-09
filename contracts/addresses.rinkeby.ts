@@ -1,2 +1,2 @@
 export const rinkebyFactoryAddress =
-  "0x5a8d6e048DDfc239C59C4e16Db37296746e8fe9A";
+  "0xd1E4f0E7815E4b56CCb19f2558EF91F8E5B98c24";

@@ -1,23 +1,26 @@
 import { useAlertContext } from "contexts/alertContext";
-import { useContract } from "wagmi";
 import { useSignerOrProvider } from "./useSignerOrProvider";
 import addresses from "contracts/addresses";
-import abi from "contracts/abis/SkaleStubFactory";
+import factoryAbi from "contracts/abis/SkaleStubFactory";
+import stubAbi from "contracts/abis/SkaleStub";
 import { useWagmi } from "./useWagmi";
 import { rinkebyFactoryAddress } from "contracts/addresses.rinkeby";
 import { DropInputProps } from "components/Forms/DropForm";
+import { ethers } from "ethers";
+import { useContractContext } from "contexts/contractContext";
 const CONTRACT_NAME = "SkaleStubFactory";
 
 export const useSkaleStubFactoryContract = () => {
   const { provider } = useSignerOrProvider();
   const { signer } = useWagmi();
-  const { awaitTx, removeTx } = useAlertContext();
+  const { addContract } = useContractContext();
+  const { awaitTx, removeTx, popToast } = useAlertContext();
 
-  const contract = useContract({
-    addressOrName: rinkebyFactoryAddress,
-    contractInterface: abi,
-    signerOrProvider: signer || provider,
-  });
+  const contract = new ethers.Contract(
+    rinkebyFactoryAddress,
+    factoryAbi,
+    signer || provider
+  );
 
   const getRandom = async () => {
     try {
@@ -32,7 +35,14 @@ export const useSkaleStubFactoryContract = () => {
   const getStubAddress = async (id: number) => {
     try {
       const res = await contract.getStubAddress(id);
-      alert(res);
+      const stub = new ethers.Contract(res, stubAbi, signer || provider);
+
+      if (res && stub && res !== "0x0000000000000000000000000000000000000000") {
+        addContract(res, stub);
+      } else {
+        popToast({ title: "No tickets by that ID :( ", status: "error" });
+      }
+
       return res;
     } catch (e) {
       console.error(e);
@@ -54,7 +64,7 @@ export const useSkaleStubFactoryContract = () => {
       awaitTx(tx);
       await tx.wait(1);
       removeTx(tx);
-      alert("Created stub");
+      popToast({ title: "Drop successful!", status: "success" });
     } catch (e) {
       removeTx(tx);
       console.error(e);

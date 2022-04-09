@@ -10,6 +10,7 @@ import { useAlertContext } from "contexts/alertContext";
 import { useContractContext } from "contexts/contractContext";
 import { useUserContext } from "contexts/userContext";
 import { useSkaleStubFactoryContract } from "hooks/useSkaleStubFactoryContract";
+import { useWagmi } from "hooks/useWagmi";
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
 import { useEffect, useMemo, useState } from "react";
@@ -29,6 +30,7 @@ const Admit: NextPage = () => {
   const { state } = useContractContext();
   const [eventDetails, setEventDetails] = useState<any>({});
   const { getStubAddress } = useSkaleStubFactoryContract();
+  const { signer } = useWagmi();
 
   const router = useRouter();
   const { id } = router.query;
@@ -37,11 +39,10 @@ const Admit: NextPage = () => {
     const updateAddy = async (id: number) => {
       await getStubAddress(id);
     };
-    if (address && id && typeof id === "string") {
-      console.log("about to call");
+    if (address && signer && id && typeof id === "string") {
       updateAddy(parseInt(id));
     }
-  }, [id, address]);
+  }, [id, address, signer]);
 
   const contract =
     id && typeof id === "string" ? state.idMap[parseInt(id)] : null;
@@ -70,9 +71,8 @@ const Admit: NextPage = () => {
   return (
     <div>
       <Container centerContent>
-        <div style={{ fontSize: "40px", marginTop: "10px" }}>Event Info</div>
+        <div style={{ fontSize: "40px", marginTop: "100px" }}>Event Info</div>
         <Box
-          bg="green"
           opacity="60%"
           w="100%"
           p={4}
@@ -96,6 +96,7 @@ const Admit: NextPage = () => {
           onClick={() => {
             popToast({ title: "Admit One", status: "success" });
           }}
+          mt={8}
           width="100%"
           size="lg"
           height="70px"

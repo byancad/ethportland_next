@@ -67,12 +67,10 @@ export const useSkaleStubFactoryContract = () => {
 
   const getStubAddress = async (id: number) => {
     try {
-      console.log("IDD: ", id);
       const res = await contract.getStubAddress(id);
       const stub = new ethers.Contract(res, stubAbi, signer || provider);
 
       if (res && stub && res !== "0x0000000000000000000000000000000000000000") {
-        console.log({ res });
         addContract(res, stub);
         addContractById(id, stub);
       } else {
@@ -81,7 +79,6 @@ export const useSkaleStubFactoryContract = () => {
 
       return res;
     } catch (e) {
-      console.log("errorrrring");
       console.error(e);
     }
   };

@@ -19,6 +19,7 @@ import address from "contracts/addresses";
 import { skaleAddress } from "contracts/address.skale";
 import { rinkebyFactoryAddress } from "contracts/addresses.rinkeby";
 import harmonyAddress from "contracts/addresses.harmony";
+import { NavBar } from "components/NavBar";
 
 const CONTRACT_NAME = "SkaleStubFactory";
 const addressesByChain: { [id: number]: string } = {
@@ -136,8 +137,9 @@ const Admit: NextPage = () => {
 
   return (
     <div>
+      <NavBar/ >
       <Container centerContent>
-        <div style={{ fontSize: "40px", marginTop: "100px" }}>Event Info</div>
+        <div style={{ fontSize: "40px", marginTop: "20px" }}>Event Info</div>
         <Box
           backgroundColor="#5662a6"
           opacity="90%"
@@ -148,6 +150,7 @@ const Admit: NextPage = () => {
           fontSize="xs"
           textTransform="uppercase"
           boxShadow="dark-lg"
+          width="100%"
           ml="2"
         >
           <div style={{ fontSize: "60px" }}>{eventDetails?.artist}</div>
@@ -173,8 +176,8 @@ const Admit: NextPage = () => {
             ADMIT
           </Button>
         </Box>
-
-        <Button onClick={handleCreateListing}>Create listing</Button>
+      
+     
       </Container>
     </div>
   );

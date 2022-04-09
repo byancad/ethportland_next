@@ -55,7 +55,7 @@ export const DropDownMenu = ({ address, disconnect }: MenuContainerProps) => {
         </MenuItem>
         <MenuItem>
           <Link
-            href={`https://staging-global.transak.com/?apiKey=${process.env.TRANSAK_API_KEY}&redirectURL=http://localhost:3000/home`}
+            href={`https://staging-global.transak.com/?apiKey=${process.env.TRANSAK_API_KEY}&cryptoCurrencyList=ETH,DAI,USDT&defaultCryptoCurrency=ETH&walletAddress=0x2dd94DC4b658F08E33272e6563dAb1758c10b1de&disableWalletAddressForm=true&exchangeScreenTitle=My%20dApp%20is%20the%20best&isFeeCalculationHidden=true`}
             style={{ textDecoration: "none" }}
           >
             Buy Crypto

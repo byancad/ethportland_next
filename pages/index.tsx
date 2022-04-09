@@ -7,12 +7,16 @@ import { Container } from '@chakra-ui/react'
 
 const Landing: NextPage = () => {
   return (
-    <div>
-      <Head>
+    <div 	>
+    
+      <Box
+  backgroundImage="/small_portland.jpg"
+  backgroundRepeat="no-repeat"
+  backgroundSize="cover">
+  <Head>
        
-      </Head>
-
-      <main>
+       </Head>
+       <main>
       <Container centerContent marginTop={40} padding={20}>
         
           <Heading fontSize={52}  >
@@ -27,6 +31,10 @@ const Landing: NextPage = () => {
   
        
       </main>
+
+
+  </Box>
+ 
 
     
     </div>

@@ -26,7 +26,9 @@ export const ResellTable = ({ tickets, handleClick }: ResellTableProps) => {
               <Td>{stub.price}</Td>
               <Td>
                 <Button
-                  onClick={() => handleClick(stub.address, stub.tokenId)}
+                  onClick={() =>
+                    handleClick(stub.address, stub.tokenId, stub.price)
+                  }
                   _focus={{ boxShadow: "none" }}
                 >
                   Purchase

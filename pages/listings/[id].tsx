@@ -3,7 +3,7 @@ import {
   Button,
   Container,
   Heading,
-  useDisclosure
+  useDisclosure,
 } from "@chakra-ui/react";
 import ListForm from "components/Forms/ListForm";
 import { ListingTable } from "components/Tables/ListingTable";
@@ -29,20 +29,22 @@ const addressesByChain: { [id: number]: string } = {
   69: address[CONTRACT_NAME],
   3092851097537429: skaleAddress,
   4: rinkebyFactoryAddress,
-  1666700000: harmonyAddress
+  1666700000: harmonyAddress,
 };
 
 const Listings: NextPage = () => {
   const router = useRouter();
   const { id } = router.query;
   const { state } = useContractContext();
-  const { getStubAddress } = useSkaleStubFactoryContract();
+  const { getStubAddress, buyListing } = useSkaleStubFactoryContract();
   const { signer, chainId } = useWagmi();
   const { address } = useUserContext();
   const { awaitTx, removeTx, popToast } = useAlertContext();
   const [eventDetails, setEventDetails] = useState<any>({});
   const [listings, setListings] = useState<any[]>([]);
-  const [listingContracts, setListingContracts] = useState<Contract[]>([]);
+  const [listingContracts, setListingContracts] = useState<{
+    [id: string]: Contract;
+  }>({});
 
   useEffect(() => {
     const updateAddy = async (id: number) => {
@@ -68,7 +70,7 @@ const Listings: NextPage = () => {
         capacity: details["eventMaxMint"].toString(),
         creatorResellShare: details["eventCreatorResellShare"].toString(),
         usedCount: details["eventUsedCount"].toString(),
-        mintedCount: details["eventMintedCount"].toString()
+        mintedCount: details["eventMintedCount"].toString(),
       };
 
       setEventDetails({ ...deets });
@@ -83,32 +85,56 @@ const Listings: NextPage = () => {
       let newListings = filtered.map((address: string) => {
         return new ethers.Contract(address, StubListingAbi, signer);
       });
-      setListingContracts([...newListings]);
 
       let listData = [];
+      let contractMap: { [id: string]: Contract } = {};
       for (const l of newListings) {
         const details: any = await l.details();
         const deets = {
           price: details._askPrice.toString(),
           tokenId: details._tokenId.toString(),
-          address: details._tokenAddress
+          address: details._tokenAddress,
         };
         listData.push(deets);
+        contractMap[deets.tokenId] = l;
       }
 
       setListings([...listData]);
+      setListingContracts({ ...contractMap });
     };
 
     if (contract) getDetails(contract);
     if (contract) getListings(contract);
   }, [contract]);
 
-  const handleBuyListing = async (address: string, id: string) => {
+  const handleBuyListing = async (
+    address: string,
+    id: string,
+    price: number
+  ) => {
     console.log("buying listing");
+
+    let creatorShare = eventDetails.creatorResellShare;
+    creatorShare = parseInt(creatorShare);
+    let creatorPayout = (100 * creatorShare) / price;
+    await buyListing(address, parseInt(id), creatorPayout);
+    removeFromListing(parseInt(id));
   };
 
-  const { onOpen } = useDisclosure();
-  const [setCurrentEvent] = useState<any>({});
+  const removeFromListing = (tokenId: number) => {
+    const oldListing = listings;
+    const newListing = oldListing.filter((x: any) => x.tokenId != tokenId);
+
+    setListings([...newListing]);
+  };
+
+  const addToListing = (listing: any) => {
+    const oldListing = listings;
+    const newListing = [...oldListing, listing];
+
+    setListings([...newListing]);
+  };
+
   const [showForm, setShowForm] = useState<boolean>(false);
 
   const handleCreateListing = async (
@@ -126,13 +152,18 @@ const Listings: NextPage = () => {
         removeTx(tx);
         popToast({
           title: "You've listed your ticket for sell. Good luck!",
-          status: "success"
+          status: "success",
+        });
+        addToListing({
+          price,
+          tokenId: id,
+          address: eventDetails.address,
         });
       } catch (e) {
         console.log(e);
         popToast({
           title: "Something went wrong!",
-          status: "error"
+          status: "error",
         });
 
         removeTx(tx);

@@ -20,14 +20,14 @@ const addressesByChain: { [id: number]: string } = {
   69: address[CONTRACT_NAME],
   3092851097537429: skaleAddress,
   4: rinkebyFactoryAddress,
-  1666700000: harmonyAddress
+  1666700000: harmonyAddress,
 };
 
 const chainNames: { [id: number]: string } = {
   69: "Local",
   3092851097537429: "Skale",
   4: "rinkeby",
-  1666700000: "harmony"
+  1666700000: "harmony",
 };
 
 export const useSkaleStubFactoryContract = () => {
@@ -85,15 +85,8 @@ export const useSkaleStubFactoryContract = () => {
   };
 
   const createStub = async (params: DropInputProps) => {
-    const {
-      event,
-      artist,
-      date,
-      location,
-      qty,
-      creatorResellShare,
-      price
-    } = params;
+    const { event, artist, date, location, qty, creatorResellShare, price } =
+      params;
     let tx;
     try {
       tx = await contract.createStub(
@@ -110,16 +103,12 @@ export const useSkaleStubFactoryContract = () => {
       removeTx(tx);
       popToast({ title: "Drop successful!", status: "success" });
       router.push({
-        pathname: "/home"
+        pathname: "/home",
       });
     } catch (e) {
       removeTx(tx);
       console.error(e);
     }
-  };
-
-  const getListings = async () => {
-    return await contract.getListings();
   };
 
   const addList = async (props: {
@@ -133,5 +122,39 @@ export const useSkaleStubFactoryContract = () => {
     console.log(stringId);
   };
 
-  return { getRandom, getStubAddress, createStub, stubCount, addList };
+  const buyListing = async (
+    address: string,
+    id: number,
+    creatorPayout: number
+  ) => {
+    let tx;
+    try {
+      tx = await contract.removeListing(address, id);
+      awaitTx(tx);
+      await tx.wait(1);
+      removeTx(tx);
+      popToast({
+        title: `You're in ! Thanks for buying. This artist earned $ ${creatorPayout}  from this purchase`,
+        status: "success",
+        duration: 10000,
+      });
+    } catch (e) {
+      console.log(e);
+      popToast({
+        title: "Something went wrong!",
+        status: "error",
+      });
+
+      removeTx(tx);
+    }
+  };
+
+  return {
+    getRandom,
+    getStubAddress,
+    createStub,
+    stubCount,
+    addList,
+    buyListing,
+  };
 };

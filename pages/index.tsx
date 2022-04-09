@@ -10,9 +10,8 @@ const Landing: NextPage = () => {
     
     <div>
       <Box
-  backgroundImage="/small_portland.jpg"
-  backgroundRepeat="no-repeat"
-  backgroundSize="cover">
+    
+  >
   <Head>
        
        </Head>
@@ -20,7 +19,7 @@ const Landing: NextPage = () => {
       <Container centerContent marginTop={40} padding={20}>
         
           <Heading fontSize={52}  >
-              SkaleStub
+              Stub3
           </Heading>
         
         <div>A ticketing platform for the Web3 Community</div>

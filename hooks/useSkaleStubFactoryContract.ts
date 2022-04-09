@@ -11,6 +11,7 @@ import { DropInputProps } from "components/Forms/DropForm";
 import { ethers } from "ethers";
 import { useContractContext } from "contexts/contractContext";
 import { redirect } from "next/dist/server/api-utils";
+import router from "next/router";
 const CONTRACT_NAME = "SkaleStubFactory";
 // skale 3092851097537429
 // rink 4
@@ -108,6 +109,9 @@ export const useSkaleStubFactoryContract = () => {
       await tx.wait(1);
       removeTx(tx);
       popToast({ title: "Drop successful!", status: "success" });
+      router.push({
+        pathname: "/home"
+      });
     } catch (e) {
       removeTx(tx);
       console.error(e);

@@ -33,7 +33,7 @@ export const SearchForm = ({ getStubAddress }: SearchFormProps) => {
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        <FormControl marginTop={10}>
+        <FormControl marginTop={4}>
           <FormHelperText textAlign="center" fontSize="50px" color="white">
             Search Tickets
           </FormHelperText>

@@ -13,7 +13,9 @@ const theme = extendTheme({
         bgImage: "url('/home.jpg');",
         bgPosition: "center",
         bgRepeat: "no-repeat",
-        backgroundSize: "cover"
+        backgroundSize: "cover",
+        bottom: "0",
+        height: "700px"
       }
     }
   }

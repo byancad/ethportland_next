@@ -89,6 +89,7 @@ export const TicketTable = ({
                 <Button
                   onClick={() => handleBuy(stub)}
                   _focus={{ boxShadow: "none" }}
+                  bgGradient="linear(to-l, #7928CA, #FF0080)"
                 >
                   Buy One
                 </Button>

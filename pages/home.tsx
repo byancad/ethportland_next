@@ -1,5 +1,6 @@
-import { Container } from "@chakra-ui/react";
+import { Container, useDisclosure } from "@chakra-ui/react";
 import { SearchForm } from "components/Forms/SearchForm";
+import { TicketPurchaseModal } from "components/Modals/TicketPurchaseModal/TicketPurchaseModal";
 import { NavBar } from "components/NavBar";
 import { TicketTable } from "components/Tables/TicketTable";
 import { useContractContext } from "contexts/contractContext";
@@ -12,6 +13,8 @@ const Home: NextPage = () => {
   const { getStubAddress, stubCount, getRandom } =
     useSkaleStubFactoryContract();
   const [eventCount, setEventCount] = useState<number>(0);
+  const { isOpen, onClose, onOpen } = useDisclosure();
+  const [currentEvent, setCurrentEvent] = useState<any>({});
 
   useEffect(() => {
     const updateStubCount = async () => {
@@ -39,7 +42,16 @@ const Home: NextPage = () => {
       <NavBar />
       <Container centerContent>
         <SearchForm getStubAddress={getStubAddress} />
-        <TicketTable tickets={state} />
+        <TicketTable
+          tickets={state}
+          onOpen={onOpen}
+          setCurrentEvent={setCurrentEvent}
+        />
+        <TicketPurchaseModal
+          isOpen={isOpen}
+          onClose={onClose}
+          event={currentEvent}
+        />
       </Container>
     </>
   );

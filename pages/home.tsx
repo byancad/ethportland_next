@@ -51,6 +51,7 @@ const Home: NextPage = () => {
           isOpen={isOpen}
           onClose={onClose}
           event={currentEvent}
+          getRandom={getRandom}
         />
       </Container>
     </>

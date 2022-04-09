@@ -58,7 +58,6 @@ export const useSkaleStubFactoryContract = () => {
   const getRandom = async () => {
     try {
       const res = await contract.getRandom();
-      alert(res);
       return res;
     } catch (e) {
       console.error(e);

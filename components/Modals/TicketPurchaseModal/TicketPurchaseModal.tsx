@@ -9,19 +9,31 @@ import {
 } from "@chakra-ui/react";
 import { Text } from "@chakra-ui/react";
 import gradient from "random-gradient";
+import { useEffect, useState } from "react";
 
 type TicketPurchaseModalProps = {
   isOpen: boolean;
   onClose: () => void;
   event: any;
+  getRandom: () => Promise<any>;
 };
 
 export const TicketPurchaseModal = ({
   isOpen,
   onClose,
   event,
+  getRandom,
 }: TicketPurchaseModalProps) => {
   const { name, location, date, mintedCount, capacity } = event;
+  const [random, setRandom] = useState<string>("");
+  useEffect(() => {
+    const getRando = async () => {
+      const random = await getRandom();
+      setRandom(random);
+    };
+
+    getRando();
+  }, [isOpen]);
 
   return (
     <>
@@ -41,7 +53,7 @@ export const TicketPurchaseModal = ({
               <Heading>Thanks for Buying on SkaleStub</Heading>
             </Box>
             <Box
-              bg={gradient("poopy")}
+              bg={gradient(random || "poopy")}
               w="100%"
               h={200}
               p={4}

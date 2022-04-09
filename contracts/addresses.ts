@@ -1,1 +1,1 @@
-export default {"SkaleStub":"0x7a2088a1bFc9d81c55368AE168C2C02570cB814F","SkaleStubFactory":"0x09635F643e140090A9A8Dcd712eD6285858ceBef"};
+export default {"SkaleStub":"0xE6E340D132b5f46d1e472DebcD681B2aBc16e57E","SkaleStubFactory":"0xc3e53F4d16Ae77Db1c982e75a937B9f60FE63690"};

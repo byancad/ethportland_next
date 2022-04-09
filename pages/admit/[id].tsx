@@ -9,6 +9,7 @@ import {
 import { useAlertContext } from "contexts/alertContext";
 import { useContractContext } from "contexts/contractContext";
 import { useUserContext } from "contexts/userContext";
+import { Contract } from "ethers";
 import { useSkaleStubFactoryContract } from "hooks/useSkaleStubFactoryContract";
 import { useWagmi } from "hooks/useWagmi";
 import type { NextPage } from "next";
@@ -26,11 +27,11 @@ const fakeEvent = {
 
 const Admit: NextPage = () => {
   const { address } = useUserContext();
-  const { popToast } = useAlertContext();
   const { state } = useContractContext();
   const [eventDetails, setEventDetails] = useState<any>({});
   const { getStubAddress } = useSkaleStubFactoryContract();
   const { signer } = useWagmi();
+  const { awaitTx, removeTx, popToast } = useAlertContext();
 
   const router = useRouter();
   const { id } = router.query;
@@ -68,6 +69,36 @@ const Admit: NextPage = () => {
     if (contract) getDetails(contract);
   }, [contract]);
 
+  const handleAdmit = async (e: any) => {
+    console.log(state.idMap);
+    e.preventDefault();
+    const admitting = async (contract: Contract) => {
+      let tx;
+      try {
+        tx = await contract.admitOne(0);
+        awaitTx(tx);
+        await tx.wait(1);
+        removeTx(tx);
+        popToast({ title: "Your in! Enjoy the show", status: "success" });
+      } catch (e) {
+        console.log(e);
+        popToast({
+          title: "Something went wrong!",
+          description:
+            "Make sure you are the owner and this ticket has not been used",
+          status: "error",
+        });
+
+        removeTx(tx);
+      }
+    };
+
+    if (id && typeof id === "string") {
+      const contract = state.idMap[parseInt(id)];
+      admitting(contract);
+    }
+  };
+
   return (
     <div>
       <Container centerContent>
@@ -89,13 +120,11 @@ const Admit: NextPage = () => {
           <div style={{ fontSize: "50px" }}>{eventDetails?.date}</div>
           <br />
           <div style={{ fontSize: "20px" }}>
-            {eventDetails?.arrived} / {eventDetails?.capacity}{" "}
+            Arrived: {eventDetails?.usedCount || 0} / {eventDetails?.capacity}{" "}
           </div>
         </Box>
         <Button
-          onClick={() => {
-            popToast({ title: "Admit One", status: "success" });
-          }}
+          onClick={handleAdmit}
           mt={8}
           width="100%"
           size="lg"

@@ -8,13 +8,16 @@ import type { NextPage } from "next";
 
 const Home: NextPage = () => {
   const { state } = useContractContext();
-  const { getStubAddress } = useSkaleStubFactoryContract();
+  const { getStubAddress, stubCount, getRandom } =
+    useSkaleStubFactoryContract();
   return (
     <>
       <NavBar />
       <Container centerContent>
         <SearchForm getStubAddress={getStubAddress} />
         <TicketTable tickets={Object.values(state)} />
+        <button onClick={stubCount}>get count</button>
+        <button onClick={getRandom}>getRandom</button>
       </Container>
     </>
   );

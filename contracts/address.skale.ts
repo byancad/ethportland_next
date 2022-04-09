@@ -1,0 +1,1 @@
+export const skaleAddress = "0x5424bC249732315B658872ad226f440701F36076";

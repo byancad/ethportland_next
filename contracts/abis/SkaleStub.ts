@@ -224,6 +224,11 @@ export default [
         "internalType": "uint256",
         "name": "eventUsedCount",
         "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "eventMintedCount",
+        "type": "uint256"
       }
     ],
     "stateMutability": "view",
@@ -306,11 +311,6 @@ export default [
         "type": "address"
       },
       {
-        "internalType": "uint256",
-        "name": "_tokenId",
-        "type": "uint256"
-      },
-      {
         "internalType": "string",
         "name": "_tokenURI",
         "type": "string"
@@ -319,6 +319,19 @@ export default [
     "name": "mint",
     "outputs": [],
     "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "mintedCount",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
     "type": "function"
   },
   {

@@ -11,18 +11,21 @@ import { Contract } from "ethers";
 import { useEffect, useState } from "react";
 
 type TicketTableProps = {
-  tickets: Contract[];
+  tickets: { [address: string]: Contract };
 };
 
 export const TicketTable = ({ tickets }: TicketTableProps) => {
   const [stubs, setStubs] = useState<any[]>([]);
 
+  const addresses = Object.keys(tickets);
+
   useEffect(() => {
-    const trying = async () => {
+    const updateTicketDetails = async () => {
       let newTickets = [];
-      for (const ticket of tickets) {
-        const details = await ticket.details();
+      for (const address of addresses) {
+        const details = await tickets[address].details();
         const deets = {
+          address,
           name: details["eventName"],
           artist: details["eventArtist"],
           date: details["eventDate"],
@@ -30,6 +33,7 @@ export const TicketTable = ({ tickets }: TicketTableProps) => {
           capacity: details["eventMaxMint"].toString(),
           creatorResellShare: details["eventCreatorResellShare"].toString(),
           usedCount: details["eventUsedCount"].toString(),
+          mintedCount: details["eventMintedCount"].toString(),
         };
         newTickets.push(deets);
       }
@@ -37,7 +41,7 @@ export const TicketTable = ({ tickets }: TicketTableProps) => {
       setStubs([...newTickets]);
     };
 
-    trying();
+    updateTicketDetails();
   }, [tickets]);
   return (
     <Table variant="simple">

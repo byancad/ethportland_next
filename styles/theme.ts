@@ -6,7 +6,14 @@ const config: ThemeConfig = {
 };
 
 const theme = extendTheme({
-  config
+  config,
+  styles: {
+    global: {
+      body: {
+        bgImage: "url('/home.jpg');"
+      }
+    }
+  }
 });
 
 export default theme;

@@ -11,38 +11,35 @@ const Home: NextPage = () => {
   const { state } = useContractContext();
   const { getStubAddress, stubCount, getRandom } =
     useSkaleStubFactoryContract();
-  const [eventCount, setEventCount] = useState<number>(0)
+  const [eventCount, setEventCount] = useState<number>(0);
 
-  useEffect(()=>{
+  useEffect(() => {
     const updateStubCount = async () => {
       const res = await stubCount();
-      setEventCount(res)
-    }
-    updateStubCount()
-  },[])
+      setEventCount(res);
+    };
+    updateStubCount();
+  }, []);
 
-  useEffect(()=>{
+  useEffect(() => {
     const getEvents = async () => {
       let eventIds = [];
-      for( let i = 0; i < eventCount; i++) {
-        eventIds.push(i)
-      } 
-      for (const id of eventIds) {
-        await getStubAddress(id)
+      for (let i = 0; i < eventCount; i++) {
+        eventIds.push(i);
       }
+      for (const id of eventIds) {
+        await getStubAddress(id);
+      }
+    };
+    getEvents();
+  }, [eventCount]);
 
-    }
-    getEvents()
-  },[eventCount])
-  
   return (
     <>
       <NavBar />
       <Container centerContent>
         <SearchForm getStubAddress={getStubAddress} />
         <TicketTable tickets={state} />
-        <button onClick={stubCount}>get count</button>
-        <button onClick={getRandom}>getRandom</button>
       </Container>
     </>
   );

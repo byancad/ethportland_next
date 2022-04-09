@@ -5,7 +5,7 @@ import {
   FormLabel,
   Input,
   InputGroup,
-  InputRightElement,
+  InputRightElement
 } from "@chakra-ui/react";
 import { useAlertContext } from "contexts/alertContext";
 import { useSkaleStubFactoryContract } from "hooks/useSkaleStubFactoryContract";
@@ -33,11 +33,13 @@ export const SearchForm = ({ getStubAddress }: SearchFormProps) => {
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        <FormControl>
-          <FormHelperText textAlign="center">Search Tickets</FormHelperText>
+        <FormControl marginTop={16}>
+          <FormHelperText textAlign="center" fontSize="50px">
+            Search Tickets
+          </FormHelperText>
           <FormLabel htmlFor="address"></FormLabel>
-          <InputGroup size="md">
-            <Input onChange={handleChange} value={searchText} />
+          <InputGroup width={550}>
+            <Input onChange={handleChange} value={searchText} width="100%" />
             <InputRightElement width="4.5rem">
               <Button
                 type="submit"

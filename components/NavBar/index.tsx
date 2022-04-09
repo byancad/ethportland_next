@@ -19,7 +19,6 @@ export const NavBar = () => {
       align="center"
       justify="space-between"
       wrap="wrap"
-      borderBottom={"1px solid grey"}
       w="100%"
       p={4}
     >

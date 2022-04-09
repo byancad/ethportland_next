@@ -1,11 +1,12 @@
 import {
+  Button,
   Table,
   TableCaption,
   Tbody,
   Td,
   Th,
   Thead,
-  Tr,
+  Tr
 } from "@chakra-ui/react";
 import { Contract } from "ethers";
 import { useEffect, useState } from "react";
@@ -33,7 +34,7 @@ export const TicketTable = ({ tickets }: TicketTableProps) => {
           capacity: details["eventMaxMint"].toString(),
           creatorResellShare: details["eventCreatorResellShare"].toString(),
           usedCount: details["eventUsedCount"].toString(),
-          mintedCount: details["eventMintedCount"].toString(),
+          mintedCount: details["eventMintedCount"].toString()
         };
         newTickets.push(deets);
       }
@@ -43,22 +44,35 @@ export const TicketTable = ({ tickets }: TicketTableProps) => {
 
     updateTicketDetails();
   }, [tickets]);
+
+  const handleBuy = async (e: any): Promise<void> => {
+    e.preventDefault();
+  };
+
   return (
-    <Table variant="simple">
+    <Table variant="simple" marginTop={18}>
       <Thead>
         <Tr>
           <Th>Date</Th>
+          <Th>Artist</Th>
           <Th>Location</Th>
-          <Th>Eth Wallet Address</Th>
+          <Th>Available</Th>
+          <Th>Purchase</Th>
         </Tr>
       </Thead>
       <Tbody>
         {stubs.map((stub: any, id: number) => {
           return (
             <Tr key={id}>
-              <Td>{stub.name}</Td>
-              <Td>{stub.artist}</Td>
               <Td>{stub.date}</Td>
+              <Td>{stub.artist}</Td>
+              <Td>{stub.location}</Td>
+              <Td>{stub.capacity}</Td>
+              <Td>
+                <Button onClick={handleBuy} _focus={{ boxShadow: "none" }}>
+                  Buy One
+                </Button>
+              </Td>
             </Tr>
           );
         })}

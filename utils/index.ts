@@ -8,3 +8,7 @@ export const ellipsisString = (str: string) => {
 export const isClient = () => {
   return typeof window != "undefined";
 };
+
+export const isValidAddress = (address: string) => {
+  return address && address !== "0x0000000000000000000000000000000000000000";
+};

@@ -1,17 +1,9 @@
-import {
-  Box,
-  Button,
-  Container,
-  Heading,
-  useDisclosure,
-} from "@chakra-ui/react";
+import { Box, Button, Container, Heading } from "@chakra-ui/react";
 import ListForm from "components/Forms/ListForm";
-import { ListingTable } from "components/Tables/ListingTable";
 import { useContractContext } from "contexts/contractContext";
 import { useUserContext } from "contexts/userContext";
 import { Contract, ethers } from "ethers";
 import { useSkaleStubFactoryContract } from "hooks/useSkaleStubFactoryContract";
-import { useWagmi } from "hooks/useWagmi";
 import { NextPage } from "next";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -37,8 +29,7 @@ const Listings: NextPage = () => {
   const { id } = router.query;
   const { state } = useContractContext();
   const { getStubAddress, buyListing } = useSkaleStubFactoryContract();
-  const { signer, chainId } = useWagmi();
-  const { address } = useUserContext();
+  const { address, signer, chainId } = useUserContext();
   const { awaitTx, removeTx, popToast } = useAlertContext();
   const [eventDetails, setEventDetails] = useState<any>({});
   const [listings, setListings] = useState<any[]>([]);

@@ -9,13 +9,13 @@ type UserSessionProps = {
 
 export const UserSession: FC<UserSessionProps> = ({ children }) => {
   const { updateUserSession } = useUserContext();
-  // const { signer } = useWagmi();
+  useWagmi();
 
   useEffect(() => {
     const checkForUserSession = async () => {
       const res = await reqUserSession();
       if (res && res.address) {
-        updateUserSession(res);
+        updateUserSession({ ...res });
       }
 
       // here we should if there is a signer / siwe address mismatch

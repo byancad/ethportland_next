@@ -1,13 +1,12 @@
 import { getDefaultProvider, Signer } from "ethers";
 import { Provider } from "@ethersproject/providers";
-import { useWagmi } from "./useWagmi";
+import { useUserContext } from "contexts/userContext";
 
 type SignerOfProviderProps = {
-  signer: Signer | undefined;
-  provider: Provider;
+  signerOrProvider: Signer | Provider | undefined;
 };
 export const useSignerOrProvider = (): SignerOfProviderProps => {
-  const { signer } = useWagmi();
+  const { signer } = useUserContext();
 
   const provider = getDefaultProvider("rinkeby", {
     infura: {
@@ -16,5 +15,7 @@ export const useSignerOrProvider = (): SignerOfProviderProps => {
     },
   });
 
-  return { signer, provider };
+  const signerOrProvider = signer ? signer : (provider as Provider);
+
+  return { signerOrProvider };
 };

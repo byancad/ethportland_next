@@ -32,7 +32,9 @@ export const TicketPurchaseModal = ({
       setRandom(random);
     };
 
-    getRando();
+    if (isOpen) {
+      getRando();
+    }
   }, [isOpen]);
 
   return (

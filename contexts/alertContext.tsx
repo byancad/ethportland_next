@@ -7,30 +7,31 @@ import {
   useContext,
   type Reducer,
   type Dispatch,
-  useState,
 } from "react";
 import { AwaitTransaction } from "../components/Toast/AwaitTransaction";
 
 // state
 type State = {
   awaitingTxs: string[];
+  awaitingSig: boolean;
 };
 
 const initialState: State = {
   awaitingTxs: [],
+  awaitingSig: false,
 };
 
 // actions
 enum ActionTypes {
   AWAIT_TX_ALERT,
   REMOVE_TX_ALERT,
-  TEST_ALERT,
+  UPDATE_AWAITING_SIG,
 }
 
 type Actions = ReducerActions<{
   [ActionTypes.AWAIT_TX_ALERT]: string;
   [ActionTypes.REMOVE_TX_ALERT]: string;
-  [ActionTypes.TEST_ALERT]: undefined;
+  [ActionTypes.UPDATE_AWAITING_SIG]: boolean;
 }>;
 
 // reducer
@@ -48,6 +49,12 @@ const reducer: Reducer<State, Actions> = (state: State, action: Actions) => {
       return {
         ...state,
         awaitingTxs: [...awaitingTxs],
+      };
+
+    case ActionTypes.UPDATE_AWAITING_SIG:
+      return {
+        ...state,
+        awaitingSig: action.payload,
       };
     default:
       return state;
@@ -117,7 +124,11 @@ export const useAlertDispatch = (dispatch: Dispatch<Actions>) => {
     dispatch({ type: ActionTypes.REMOVE_TX_ALERT, payload: tx });
   };
 
-  return { awaitTx, removeTx };
+  const awaitSig = (awaiting: boolean) => {
+    dispatch({ type: ActionTypes.UPDATE_AWAITING_SIG, payload: awaiting });
+  };
+
+  return { awaitTx, removeTx, awaitSig };
 };
 
 // hook

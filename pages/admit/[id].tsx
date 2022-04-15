@@ -1,20 +1,12 @@
-import {
-  Box,
-  Button,
-  Container,
-  Heading,
-  StackDivider,
-  VStack,
-} from "@chakra-ui/react";
+import { Box, Button, Container } from "@chakra-ui/react";
 import { useAlertContext } from "contexts/alertContext";
 import { useContractContext } from "contexts/contractContext";
 import { useUserContext } from "contexts/userContext";
 import { Contract } from "ethers";
 import { useSkaleStubFactoryContract } from "hooks/useSkaleStubFactoryContract";
-import { useWagmi } from "hooks/useWagmi";
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import address from "contracts/addresses";
 import { skaleAddress } from "contracts/address.skale";
 import { rinkebyFactoryAddress } from "contracts/addresses.rinkeby";
@@ -30,11 +22,10 @@ const addressesByChain: { [id: number]: string } = {
 };
 
 const Admit: NextPage = () => {
-  const { address } = useUserContext();
+  const { address, signer, chainId } = useUserContext();
   const { state } = useContractContext();
   const [eventDetails, setEventDetails] = useState<any>({});
   const { getStubAddress } = useSkaleStubFactoryContract();
-  const { signer, chainId } = useWagmi();
   const { awaitTx, removeTx, popToast } = useAlertContext();
 
   const router = useRouter();
@@ -137,7 +128,7 @@ const Admit: NextPage = () => {
 
   return (
     <div>
-      <NavBar/ >
+      <NavBar />
       <Container centerContent>
         <div style={{ fontSize: "40px", marginTop: "20px" }}>Event Info</div>
         <Box
@@ -176,8 +167,6 @@ const Admit: NextPage = () => {
             ADMIT
           </Button>
         </Box>
-      
-     
       </Container>
     </div>
   );

@@ -1,32 +1,26 @@
-import { useEffect, useState } from "react";
-import { useAccount, useConnect, useNetwork, useSigner } from "wagmi";
+import { useUserContext } from "contexts/userContext";
+import { useEffect } from "react";
+import { useNetwork, useSigner } from "wagmi";
 
 export const useWagmi = () => {
-  const [{ data: connectData }, connect] = useConnect();
-  const [{ data: disconnectData }, disconnect] = useAccount();
+  const { updateSigner, updateSignerAddress, updateChainId } = useUserContext();
   const [{ data: signer }] = useSigner();
-
-  const [{ data, error, loading }, switchNetwork] = useNetwork();
-  const chainId = data?.chain?.id;
-
-  const [signerAddress, setSignerAddress] = useState<string | undefined>();
+  const [{ data: network }] = useNetwork();
+  const chainId = network?.chain?.id;
 
   useEffect(() => {
     const getSignerAddress = async () => {
       const address = await signer?.getAddress();
-      setSignerAddress(address);
+      if (address) updateSignerAddress(address);
     };
 
-    if (signer) getSignerAddress();
+    updateSigner(signer);
+    getSignerAddress();
   }, [signer]);
 
-  return {
-    connectData,
-    connect,
-    disconnectData,
-    disconnect,
-    signer,
-    signerAddress,
-    chainId,
-  };
+  useEffect(() => {
+    if (chainId) {
+      updateChainId(chainId);
+    }
+  }, [chainId]);
 };

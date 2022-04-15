@@ -1,17 +1,18 @@
 import { useAlertContext } from "contexts/alertContext";
 import { useSignerOrProvider } from "./useSignerOrProvider";
 import address from "contracts/addresses";
-import factoryAbi from "contracts/abis/SkaleStubFactory";
+import contractAbi from "contracts/abis/SkaleStubFactory";
 import stubAbi from "contracts/abis/SkaleStub";
 import { useWagmi } from "./useWagmi";
 import { rinkebyFactoryAddress } from "contracts/addresses.rinkeby";
 import harmonyAddress from "contracts/addresses.harmony";
 import { skaleAddress } from "contracts/address.skale";
 import { DropInputProps } from "components/Forms/DropForm";
-import { ethers } from "ethers";
+import { Contract } from "ethers";
 import { useContractContext } from "contexts/contractContext";
-import { redirect } from "next/dist/server/api-utils";
 import router from "next/router";
+import { useUserContext } from "contexts/userContext";
+import { isValidAddress } from "utils";
 const CONTRACT_NAME = "SkaleStubFactory";
 // skale 3092851097537429
 // rink 4
@@ -23,68 +24,18 @@ const addressesByChain: { [id: number]: string } = {
   1666700000: harmonyAddress,
 };
 
-const chainNames: { [id: number]: string } = {
-  69: "Local",
-  3092851097537429: "Skale",
-  4: "rinkeby",
-  1666700000: "harmony",
-};
-
 export const useSkaleStubFactoryContract = () => {
-  const { provider } = useSignerOrProvider();
-  const { signer, chainId } = useWagmi();
-  const { addContract, addContractById } = useContractContext();
+  const { signerOrProvider } = useSignerOrProvider();
+  const { chainId } = useUserContext();
+  const { addContractById, addEvent } = useContractContext();
   const { awaitTx, removeTx, popToast } = useAlertContext();
 
-  // console.log(
-  //   `${chainNames[chainId || 69]} contract address: `,
-  //   addressesByChain[chainId || 69]
-  // );
-
-  const contract = new ethers.Contract(
-    addressesByChain[chainId || 69],
-    factoryAbi,
-    signer || provider
-  );
-
-  const stubCount = async () => {
-    try {
-      const res = await contract.stubCount();
-
-      return res;
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
-  const getRandom = async () => {
-    try {
-      const res = await contract.getRandom();
-      return res;
-    } catch (e) {
-      console.error(e);
-    }
-  };
-
-  const getStubAddress = async (id: number) => {
-    try {
-      const res = await contract.getStubAddress(id);
-      const stub = new ethers.Contract(res, stubAbi, signer || provider);
-
-      if (res && stub && res !== "0x0000000000000000000000000000000000000000") {
-        addContract(res, stub);
-        addContractById(id, stub);
-      } else {
-        popToast({ title: "No tickets by that ID :( ", status: "error" });
-      }
-
-      return res;
-    } catch (e) {
-      console.error(e);
-    }
+  const getContract = (address: string) => {
+    return new Contract(address, contractAbi, signerOrProvider);
   };
 
   const createStub = async (params: DropInputProps) => {
+    const contract = getContract(addressesByChain[chainId || 69]);
     const { event, artist, date, location, qty, creatorResellShare, price } =
       params;
     let tx;
@@ -122,11 +73,52 @@ export const useSkaleStubFactoryContract = () => {
     console.log(stringId);
   };
 
+  const stubCount = async () => {
+    const contract = getContract(addressesByChain[chainId || 69]);
+    try {
+      const res = await contract.stubCount();
+
+      return res;
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const getRandom = async () => {
+    const contract = getContract(addressesByChain[chainId || 69]);
+    try {
+      const res = await contract.getRandom();
+      return res;
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const getStubAddress = async (id: number) => {
+    const contract = getContract(addressesByChain[chainId || 69]);
+    try {
+      const eventAddress = await contract.getStubAddress(id);
+      const stub = new Contract(eventAddress, stubAbi, signerOrProvider);
+
+      if (isValidAddress(eventAddress) && stub) {
+        addEvent(id, eventAddress);
+        addContractById(id, stub);
+      } else {
+        popToast({ title: "No tickets by that ID :( ", status: "error" });
+      }
+
+      return eventAddress;
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
   const buyListing = async (
     address: string,
     id: number,
     creatorPayout: number
   ) => {
+    const contract = getContract(addressesByChain[chainId || 69]);
     let tx;
     try {
       tx = await contract.removeListing(address, id);

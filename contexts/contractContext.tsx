@@ -9,44 +9,39 @@ import {
 
 // state
 type State = {
-  addressMap: {
-    [address: string]: Contract;
+  events: {
+    [id: number]: string;
   };
   idMap: {
     [id: number]: Contract;
   };
 };
 
-const initialState: State = { addressMap: {}, idMap: {} };
+const initialState: State = { events: {}, idMap: {} };
 
 // actions
 enum ActionTypes {
-  ADD_CONTRACT,
   ADD_CONTRACT_BY_ID,
+  ADD_EVENT,
 }
 
 // action creator types
 type Actions = ReducerActions<{
-  [ActionTypes.ADD_CONTRACT]: { address: string; contract: Contract };
   [ActionTypes.ADD_CONTRACT_BY_ID]: { id: number; contract: Contract };
+  [ActionTypes.ADD_EVENT]: { id: number; address: string };
 }>;
 
 // reducer
 const reducer: Reducer<State, Actions> = (state: State, action: Actions) => {
   switch (action.type) {
-    case ActionTypes.ADD_CONTRACT:
-      const originalAddressMap = state.addressMap;
-      const { address, contract } = action.payload;
-      let newContract: { [address: string]: Contract } = {};
-      newContract[address] = contract;
+    case ActionTypes.ADD_EVENT:
       return {
         ...state,
-        addressMap: {
-          ...originalAddressMap,
-          ...newContract,
+        events: {
+          ...state.events,
+          [action.payload.id]: action.payload.address,
         },
       };
-
     case ActionTypes.ADD_CONTRACT_BY_ID:
       const originalIdMap = state.idMap;
       const { id, contract: contractInstance } = action.payload;
@@ -69,8 +64,8 @@ const reducer: Reducer<State, Actions> = (state: State, action: Actions) => {
 type IContext = {
   state: State;
   dispatch: Dispatch<Actions>;
-  addContract: (address: string, contract: Contract) => void;
   addContractById: (id: number, contract: Contract) => void;
+  addEvent: (id: number, address: string) => void;
 };
 
 const Context = createContext<IContext>({} as IContext);
@@ -81,13 +76,6 @@ export const Provider: React.FC<{
 }> = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  const addContract = (address: string, contract: Contract) => {
-    dispatch({
-      type: ActionTypes.ADD_CONTRACT,
-      payload: { address, contract },
-    });
-  };
-
   const addContractById = (id: number, contract: Contract) => {
     dispatch({
       type: ActionTypes.ADD_CONTRACT_BY_ID,
@@ -95,15 +83,22 @@ export const Provider: React.FC<{
     });
   };
 
+  const addEvent = (id: number, address: string) => {
+    dispatch({
+      type: ActionTypes.ADD_EVENT,
+      payload: { id, address },
+    });
+  };
+
   return (
-    <Context.Provider value={{ state, dispatch, addContract, addContractById }}>
+    <Context.Provider value={{ state, dispatch, addContractById, addEvent }}>
       {children}
     </Context.Provider>
   );
 };
 
-// hook
+// hooks
 export const useContractContext = () => {
-  const { state, addContract, addContractById } = useContext(Context);
-  return { state, addContract, addContractById };
+  const { state, addContractById, addEvent } = useContext(Context);
+  return { ...state, state, addContractById, addEvent };
 };

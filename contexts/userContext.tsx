@@ -1,3 +1,4 @@
+import { Signer } from "ethers";
 import {
   createContext,
   Dispatch,
@@ -8,15 +9,19 @@ import {
 
 // state
 type State = {
-  address?: string;
-  session?: boolean;
-  rally?: any;
+  address: string;
+  session: boolean;
+  signer: Signer | undefined;
+  signerAddress: string | undefined;
+  chainId: number | undefined;
 };
 
 const initialState: State = {
-  address: undefined,
+  address: "",
   session: false,
-  rally: {},
+  signer: undefined,
+  signerAddress: "",
+  chainId: undefined,
 };
 
 // actions
@@ -24,6 +29,10 @@ enum ActionTypes {
   UPDATE_USER_SESSION,
   CLEAR_USER_SESSION,
   UPDATE_RALLY_USER,
+  UPDATE_SIGNER,
+  UPDATE_SIGNER_ADDRESS,
+  CLEAR_SIGNER,
+  UPDATE_CHAIN_ID,
 }
 
 // action creator types
@@ -31,6 +40,10 @@ type Actions = ReducerActions<{
   [ActionTypes.UPDATE_USER_SESSION]: State;
   [ActionTypes.CLEAR_USER_SESSION]: undefined;
   [ActionTypes.UPDATE_RALLY_USER]: { username: string; rnbUserId: string };
+  [ActionTypes.UPDATE_SIGNER_ADDRESS]: string | undefined;
+  [ActionTypes.UPDATE_SIGNER]: Signer | undefined;
+  [ActionTypes.CLEAR_SIGNER]: undefined;
+  [ActionTypes.UPDATE_CHAIN_ID]: number | undefined;
 }>;
 
 // reducer
@@ -41,13 +54,34 @@ const reducer: Reducer<State, Actions> = (state: State, action: Actions) => {
         ...state,
         ...action.payload,
       };
-    case ActionTypes.UPDATE_RALLY_USER:
+    case ActionTypes.UPDATE_SIGNER:
       return {
         ...state,
-        rally: action.payload,
+        signer: action.payload,
+      };
+
+    case ActionTypes.UPDATE_SIGNER_ADDRESS:
+      return {
+        ...state,
+        signerAddress: action.payload,
       };
     case ActionTypes.CLEAR_USER_SESSION:
-      return initialState;
+      return {
+        ...state,
+        address: "",
+        session: false,
+      };
+    case ActionTypes.CLEAR_SIGNER:
+      return {
+        ...state,
+        signer: undefined,
+        signerAddress: undefined,
+      };
+    case ActionTypes.UPDATE_CHAIN_ID:
+      return {
+        ...state,
+        chainId: action.payload,
+      };
     default:
       return state;
   }
@@ -79,7 +113,7 @@ export const Provider: React.FC<{
   );
 };
 
-// hook
+// hooks
 export const useUserDispatch = (dispatch: Dispatch<Actions>) => {
   const updateUserSession = (session: State) => {
     dispatch({ type: ActionTypes.UPDATE_USER_SESSION, payload: session });
@@ -89,11 +123,25 @@ export const useUserDispatch = (dispatch: Dispatch<Actions>) => {
     dispatch({ type: ActionTypes.CLEAR_USER_SESSION });
   };
 
-  const updateRally = (data: { username: string; rnbUserId: string }) => {
-    dispatch({ type: ActionTypes.UPDATE_RALLY_USER, payload: data });
+  const updateSigner = (signer: Signer | undefined) => {
+    dispatch({ type: ActionTypes.UPDATE_SIGNER, payload: signer });
   };
 
-  return { updateUserSession, clearUserSession, updateRally };
+  const updateSignerAddress = (address: string | undefined) => {
+    dispatch({ type: ActionTypes.UPDATE_SIGNER_ADDRESS, payload: address });
+  };
+
+  const updateChainId = (chainId: number | undefined) => {
+    dispatch({ type: ActionTypes.UPDATE_CHAIN_ID, payload: chainId });
+  };
+
+  return {
+    updateUserSession,
+    clearUserSession,
+    updateSigner,
+    updateSignerAddress,
+    updateChainId,
+  };
 };
 
 export const useUserContext = () => {

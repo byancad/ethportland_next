@@ -51,7 +51,7 @@ export const TicketPurchaseModal = ({
           <ModalCloseButton />
           <ModalBody>
             <Box w="100%" p={4} color="white" mb={20} textAlign="center">
-              <Heading>You're going to the show!</Heading>
+              <Heading>Youre going to the show!</Heading>
               <Heading>Thanks for Buying on Stub3</Heading>
             </Box>
             <Box

@@ -7,7 +7,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   switch (method) {
     case "GET":
       res.send({
+        // @ts-ignore
         address: req.session.siwe?.address,
+        // @ts-ignore
         session: req.session.siwe?.session,
       });
       break;

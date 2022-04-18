@@ -11,11 +11,15 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         const { message, signature } = req.body;
         const siweMessage = new SiweMessage(message);
         const fields = await siweMessage.validate(signature);
+        // @ts-ignore
         req.session.siwe = fields;
+        // @ts-ignore
         req.session.siwe.session = true;
         await req.session.save();
         res.send({
+          // @ts-ignore
           address: req.session.siwe?.address,
+          // @ts-ignore
           session: req.session.siwe?.session,
         });
       } catch (_error) {

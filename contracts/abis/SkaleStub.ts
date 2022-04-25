@@ -328,9 +328,9 @@ export default [
     "name": "getlistings",
     "outputs": [
       {
-        "internalType": "contract StubListing[10]",
+        "internalType": "contract StubListing[9]",
         "name": "",
-        "type": "address[10]"
+        "type": "address[9]"
       }
     ],
     "stateMutability": "view",
